@@ -78,7 +78,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       args: [address, TOKEN_ID],
     });
 
-    if (balance > 0n) {
+    if (balance > 5n) {
       return getResponse(ResponseType.ALREADY_MINTED);
     }
 
@@ -154,7 +154,7 @@ function getResponse(type: ResponseType) {
         <meta name="fc:frame:button:1:action" content="mint" />
         <meta
           name="fc:frame:button:1:target"
-          content="eip155:8453:0x4726d6927b21409e198e5c12b2d48548d101d1f3:1"
+          content="eip155:8453:0x010d89d73ac069f9b828aee44eeaacdded3e7c9a:3"
         />`
         : ''
     }
