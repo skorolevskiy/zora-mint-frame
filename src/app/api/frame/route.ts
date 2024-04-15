@@ -70,17 +70,17 @@ export async function POST(req: NextRequest): Promise<Response> {
       }
     }
 
-    // // Check if user has a balance
-    // const balance = await publicClient.readContract({
-    //   abi: Zora1155ABI,
-    //   address: CONTRACT_ADDRESS,
-    //   functionName: 'balanceOf',
-    //   args: [address, TOKEN_ID],
-    // });
+    // Check if user has a balance
+    const balance = await publicClient.readContract({
+      abi: Zora1155ABI,
+      address: CONTRACT_ADDRESS,
+      functionName: 'balanceOf',
+      args: [address, TOKEN_ID],
+    });
 
-    // if (balance > 0n) {
-    //   return getResponse(ResponseType.ALREADY_MINTED);
-    // }
+    if (balance > 0n) {
+      return getResponse(ResponseType.ALREADY_MINTED);
+    }
 
     // Try minting a new token
     // const { request } = await publicClient.simulateContract({
