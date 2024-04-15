@@ -70,45 +70,45 @@ export async function POST(req: NextRequest): Promise<Response> {
       }
     }
 
-    // Check if user has a balance
-    const balance = await publicClient.readContract({
-      abi: Zora1155ABI,
-      address: CONTRACT_ADDRESS,
-      functionName: 'balanceOf',
-      args: [address, TOKEN_ID],
-    });
+    // // Check if user has a balance
+    // const balance = await publicClient.readContract({
+    //   abi: Zora1155ABI,
+    //   address: CONTRACT_ADDRESS,
+    //   functionName: 'balanceOf',
+    //   args: [address, TOKEN_ID],
+    // });
 
-    if (balance > 0n) {
-      return getResponse(ResponseType.ALREADY_MINTED);
-    }
+    // if (balance > 0n) {
+    //   return getResponse(ResponseType.ALREADY_MINTED);
+    // }
 
     // Try minting a new token
-    const { request } = await publicClient.simulateContract({
-      address: CONTRACT_ADDRESS,
-      abi: Zora1155ABI,
-      functionName: 'adminMint',
-      args: [address, TOKEN_ID, 1n, '0x'],
-      account: privateKeyToAccount(MINTER_PRIVATE_KEY),
-    });
+    // const { request } = await publicClient.simulateContract({
+    //   address: CONTRACT_ADDRESS,
+    //   abi: Zora1155ABI,
+    //   functionName: 'adminMint',
+    //   args: [address, TOKEN_ID, 1n, '0x'],
+    //   account: privateKeyToAccount(MINTER_PRIVATE_KEY),
+    // });
 
-    if (!request) {
-      throw new Error('Could not simulate contract');
-    }
+    // if (!request) {
+    //   throw new Error('Could not simulate contract');
+    // }
 
-    try {
-      const hash = await walletClient.writeContract(request);
+    // try {
+    //   const hash = await walletClient.writeContract(request);
 
-      if (HAS_KV) {
-        await kv.set(`mint:${address}`, hash);
-      }
-    } catch (error) {
-      if (
-        error instanceof TransactionExecutionError &&
-        error.details.startsWith('gas required exceeds allowance')
-      ) {
-        return getResponse(ResponseType.OUT_OF_GAS);
-      }
-    }
+    //   if (HAS_KV) {
+    //     await kv.set(`mint:${address}`, hash);
+    //   }
+    // } catch (error) {
+    //   if (
+    //     error instanceof TransactionExecutionError &&
+    //     error.details.startsWith('gas required exceeds allowance')
+    //   ) {
+    //     return getResponse(ResponseType.OUT_OF_GAS);
+    //   }
+    // }
 
     return getResponse(ResponseType.SUCCESS);
   } catch (error) {
@@ -137,6 +137,8 @@ function getResponse(type: ResponseType) {
   }[type];
   const shouldRetry =
     type === ResponseType.ERROR || type === ResponseType.RECAST;
+  const successRetry = 
+    type === ResponseType.SUCCESS;
   return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
     <meta property="fc:frame:image" content="${SITE_URL}/${IMAGE}" />
@@ -144,6 +146,16 @@ function getResponse(type: ResponseType) {
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
+        : ''
+    }
+    ${
+      successRetry
+        ? `<meta property="fc:frame:button:1" content="Mint" />\
+        <meta name="fc:frame:button:1:action" content="mint" />
+        <meta
+          name="fc:frame:button:1:target"
+          content="eip155:8453:0x4726d6927b21409e198e5c12b2d48548d101d1f3:1"
+        />`
         : ''
     }
   </head></html>`);
