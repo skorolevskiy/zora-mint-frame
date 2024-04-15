@@ -154,7 +154,7 @@ function getResponse(type: ResponseType) {
         <meta name="fc:frame:button:1:action" content="mint" />
         <meta
           name="fc:frame:button:1:target"
-          content="eip155:8453:0x010d89d73ac069f9b828aee44eeaacdded3e7c9a:3"
+          content="eip155:8453:${CONTRACT_ADDRESS}:3"
         />`
         : ''
     }

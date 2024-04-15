@@ -15,17 +15,20 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div style={{ minHeight: '100dvh', display: 'flex' }}>
+    <div style={{ minHeight: '92dvh', display: 'flex' }}>
       <h1
         style={{
           margin: 'auto',
           fontFamily: 'Comic Sans MS, Comic Sans, cursive',
-          fontSize: '120px'
+          fontSize: '80px'
         }}
       >
-        
-        Back to Farcaster cheater!
-        
+        <a
+          href={`https://zora.co/collect/${CHAIN.id}:${CONTRACT_ADDRESS}/${TOKEN_ID}`}
+          style={{ color: 'inherit' }}
+        >
+          Free mint!
+        </a>
       </h1>
     </div>
   );
