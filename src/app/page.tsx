@@ -20,14 +20,12 @@ export default function Home() {
         style={{
           margin: 'auto',
           fontFamily: 'Comic Sans MS, Comic Sans, cursive',
+          fontSize: '120px'
         }}
       >
-        <a
-          href={`https://zora.co/collect/${CHAIN.id}:${CONTRACT_ADDRESS}/${TOKEN_ID}`}
-          style={{ color: 'inherit' }}
-        >
-          Free mint!
-        </a>
+        
+        Back to Farcaster cheater!
+        
       </h1>
     </div>
   );
