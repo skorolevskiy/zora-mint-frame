@@ -138,7 +138,7 @@ function getResponse(type: ResponseType) {
   //   type === ResponseType.SUCCESS;
   return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${SITE_URL}/status/spin.png" />
+    <meta property="fc:frame:image" content="${SITE_URL}/status/spin.jpg" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
     <meta name="fc:frame:button:1" content="Spin again" />
