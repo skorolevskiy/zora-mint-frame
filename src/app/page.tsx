@@ -9,7 +9,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   metadataBase: SITE_URL ? new URL(SITE_URL) : undefined,
-  title: 'Free mint!',
+  title: 'Enter Game',
   other: FRAME_METADATA,
 };
 
@@ -23,12 +23,7 @@ export default function Home() {
           fontSize: '80px'
         }}
       >
-        <a
-          href={`https://zora.co/collect/${CHAIN.id}:${CONTRACT_ADDRESS}/${TOKEN_ID}`}
-          style={{ color: 'inherit' }}
-        >
-          Free mint!
-        </a>
+        Go to Farcaster!
       </h1>
     </div>
   );

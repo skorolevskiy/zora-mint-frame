@@ -8,7 +8,7 @@ export const CONTRACT_ADDRESS = '0x010d89d73ac069f9b828aee44eeaacdded3e7c9a';
 export const TOKEN_ID = 3n; // First collection is 1
 
 export const FRAME_METADATA = getFrameMetadata({
-  buttons: ['Free mint'],
+  buttons: ['Enter game'],
   image: `${SITE_URL}/opengraph-image.png`,
   post_url: `${SITE_URL}/api/frame`,
 });
