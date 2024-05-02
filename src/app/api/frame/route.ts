@@ -142,15 +142,15 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
     <meta name="fc:frame:button:1" content="Spin" />
-    <meta name="fc:frame:button:1:action" content="post_redirect" />
+    <meta name="fc:frame:button:1:action" content="post" />
     <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
 
     <meta name="fc:frame:button:2" content="Rules" />
-    <meta name="fc:frame:button:2:action" content="post_redirect" />
+    <meta name="fc:frame:button:2:action" content="post" />
     <meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/rules/" />
 
     <meta name="fc:frame:button:3" content="Liderboard" />
-    <meta name="fc:frame:button:3:action" content="post_redirect" />
+    <meta name="fc:frame:button:3:action" content="post" />
     <meta name="fc:frame:button:3:target" content="${SITE_URL}/api/frame/liderboard/" />
 
     <meta name="fc:frame:button:4" content="Buy pill" />
