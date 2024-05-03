@@ -152,7 +152,7 @@ function getResponse(type: ResponseType) {
 
     <meta name="fc:frame:button:3" content="Liderboard" />
     <meta name="fc:frame:button:3:action" content="post" />
-    <meta name="fc:frame:button:3:target" content="${SITE_URL}/api/frame/liderboard/" />
+    <meta name="fc:frame:button:3:target" content="${SITE_URL}/api/frame/leaderboard/" />
 
     <meta name="fc:frame:button:4" content="Buy pill" />
     <meta name="fc:frame:button:4:action" content="link" />
