@@ -72,7 +72,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       return -1; // Handle edge case if needed
   }
 
-    function chooseImage(number: number): string {
+    function chooseImage(number: number): Response {
       switch (number) {
           case 1:
             return getResponse(ResponseType.IMAGE_1);
