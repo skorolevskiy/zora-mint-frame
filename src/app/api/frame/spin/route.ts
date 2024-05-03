@@ -94,7 +94,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       return getResponse(ResponseType.IMAGE_8);
 }
   
-  //return getResponse(ResponseType.IMAGE_1);
+  return getResponse(ResponseType.IMAGE_8);
     // Check if user has minted before
     // if (HAS_KV) {
     //   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
@@ -144,7 +144,6 @@ export async function POST(req: NextRequest): Promise<Response> {
     //   }
     // }
 
-    //return getResponse(ResponseType.SUCCESS);
   } catch (error) {
     console.error(error);
     return getResponse(ResponseType.ERROR);
