@@ -10,7 +10,6 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   metadataBase: SITE_URL ? new URL(SITE_URL) : undefined,
   title: 'Pill spin game [BETA]',
-  aspectRatio: '1:1',
   other: FRAME_METADATA,
 };
 
