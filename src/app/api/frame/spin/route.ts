@@ -99,7 +99,7 @@ export async function POST(req: NextRequest): Promise<Response> {
   const randomNumber: number = weightedRandomNumber();
   chooseImage(randomNumber);
   
-
+  return getResponse(ResponseType.IMAGE_1);
     // Check if user has minted before
     // if (HAS_KV) {
     //   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
