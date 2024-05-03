@@ -58,23 +58,22 @@ export async function POST(req: NextRequest): Promise<Response> {
       return getResponse(ResponseType.NO_ADDRESS);
     }
 
-    function weightedRandomNumber(): number {
-      const weights: number[] = [3, 3, 2, 2, 2, 2, 2, 1];
-      const totalWeight: number = weights.reduce((acc, val) => acc + val, 0);
-      const randomWeight: number = Math.floor(Math.random() * totalWeight);
-      let cumulativeWeight: number = 0;
+    function weighted_random_number() {
+      const weights = [3, 3, 2, 2, 2, 2, 2, 1];
+      const total_weight = weights.reduce((acc, val) => acc + val, 0);
+      const random_weight = Math.floor(Math.random() * total_weight);
+      let cumulative_weight = 0;
       for (let i = 0; i < weights.length; i++) {
-          cumulativeWeight += weights[i];
-          if (randomWeight < cumulativeWeight) {
+          cumulative_weight += weights[i];
+          if (random_weight < cumulative_weight) {
               return i + 1;
           }
       }
-      return -1; // Handle edge case if needed
   }
 
   
   // Пример использования функции:
-  const randomNumber: number = weightedRandomNumber();
+  const randomNumber = weighted_random_number();
 
   switch (randomNumber) {
     case 1:
