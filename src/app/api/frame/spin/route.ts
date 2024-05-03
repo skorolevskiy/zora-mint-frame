@@ -72,34 +72,32 @@ export async function POST(req: NextRequest): Promise<Response> {
       return -1; // Handle edge case if needed
   }
 
-    function chooseImage(number: number): Response {
-      switch (number) {
-          case 1:
-            return getResponse(ResponseType.IMAGE_1);
-          case 2:
-            return getResponse(ResponseType.IMAGE_2);
-          case 3:
-            return getResponse(ResponseType.IMAGE_3);
-          case 4:
-            return getResponse(ResponseType.IMAGE_4);
-          case 5:
-            return getResponse(ResponseType.IMAGE_5);
-          case 6:
-            return getResponse(ResponseType.IMAGE_6);
-          case 7:
-            return getResponse(ResponseType.IMAGE_7);
-          case 8:
-            return getResponse(ResponseType.IMAGE_8);
-          default:
-            return getResponse(ResponseType.IMAGE_1);
-      }
-  }
   
   // Пример использования функции:
   const randomNumber: number = weightedRandomNumber();
-  chooseImage(randomNumber);
+
+  switch (randomNumber) {
+    case 1:
+      return getResponse(ResponseType.IMAGE_1);
+    case 2:
+      return getResponse(ResponseType.IMAGE_2);
+    case 3:
+      return getResponse(ResponseType.IMAGE_3);
+    case 4:
+      return getResponse(ResponseType.IMAGE_4);
+    case 5:
+      return getResponse(ResponseType.IMAGE_5);
+    case 6:
+      return getResponse(ResponseType.IMAGE_6);
+    case 7:
+      return getResponse(ResponseType.IMAGE_7);
+    case 8:
+      return getResponse(ResponseType.IMAGE_8);
+    default:
+      return getResponse(ResponseType.IMAGE_1);
+}
   
-  return getResponse(ResponseType.IMAGE_1);
+  //return getResponse(ResponseType.IMAGE_1);
     // Check if user has minted before
     // if (HAS_KV) {
     //   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
