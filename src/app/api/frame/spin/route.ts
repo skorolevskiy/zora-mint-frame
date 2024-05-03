@@ -58,6 +58,48 @@ export async function POST(req: NextRequest): Promise<Response> {
       return getResponse(ResponseType.NO_ADDRESS);
     }
 
+    function weightedRandomNumber(): number {
+      const weights: number[] = [3, 3, 2, 2, 2, 2, 2, 1];
+      const totalWeight: number = weights.reduce((acc, val) => acc + val, 0);
+      const randomWeight: number = Math.floor(Math.random() * totalWeight);
+      let cumulativeWeight: number = 0;
+      for (let i = 0; i < weights.length; i++) {
+          cumulativeWeight += weights[i];
+          if (randomWeight < cumulativeWeight) {
+              return i + 1;
+          }
+      }
+      return -1; // Handle edge case if needed
+  }
+
+    function chooseImage(number: number): string {
+      switch (number) {
+          case 1:
+            return getResponse(ResponseType.IMAGE_1);
+          case 2:
+            return getResponse(ResponseType.IMAGE_2);
+          case 3:
+            return getResponse(ResponseType.IMAGE_3);
+          case 4:
+            return getResponse(ResponseType.IMAGE_4);
+          case 5:
+            return getResponse(ResponseType.IMAGE_5);
+          case 6:
+            return getResponse(ResponseType.IMAGE_6);
+          case 7:
+            return getResponse(ResponseType.IMAGE_7);
+          case 8:
+            return getResponse(ResponseType.IMAGE_8);
+          default:
+            return getResponse(ResponseType.IMAGE_1);
+      }
+  }
+  
+  // Пример использования функции:
+  const randomNumber: number = weightedRandomNumber();
+  chooseImage(randomNumber);
+  
+
     // Check if user has minted before
     // if (HAS_KV) {
     //   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
@@ -107,7 +149,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     //   }
     // }
 
-    return getResponse(ResponseType.SUCCESS);
+    //return getResponse(ResponseType.SUCCESS);
   } catch (error) {
     console.error(error);
     return getResponse(ResponseType.ERROR);
@@ -116,20 +158,32 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 enum ResponseType {
   SUCCESS,
-  RECAST,
+  IMAGE_1,
+  IMAGE_2,
+  IMAGE_3,
+  IMAGE_4,
+  IMAGE_5,
+  IMAGE_6,
+  IMAGE_7,
+  IMAGE_8,
   ALREADY_MINTED,
   NO_ADDRESS,
-  OUT_OF_GAS,
   ERROR,
 }
 
 function getResponse(type: ResponseType) {
   const IMAGE = {
     [ResponseType.SUCCESS]: 'status/success.png',
-    [ResponseType.RECAST]: 'status/recast.png',
+    [ResponseType.IMAGE_1]: 'status/image-1.png',
+    [ResponseType.IMAGE_2]: 'status/image-2.png',
+    [ResponseType.IMAGE_3]: 'status/image-3.png',
+    [ResponseType.IMAGE_4]: 'status/image-4.png',
+    [ResponseType.IMAGE_5]: 'status/image-5.png',
+    [ResponseType.IMAGE_6]: 'status/image-6.png',
+    [ResponseType.IMAGE_7]: 'status/image-7.png',
+    [ResponseType.IMAGE_8]: 'status/image-8.png',
     [ResponseType.ALREADY_MINTED]: 'status/already-minted.png',
     [ResponseType.NO_ADDRESS]: 'status/no-address.png',
-    [ResponseType.OUT_OF_GAS]: 'status/out-of-gas.png',
     [ResponseType.ERROR]: 'status/error.png',
   }[type];
   // const shouldRetry =

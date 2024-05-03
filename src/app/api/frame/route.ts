@@ -156,7 +156,7 @@ function getResponse(type: ResponseType) {
 
     <meta name="fc:frame:button:4" content="Buy pill" />
     <meta name="fc:frame:button:4:action" content="link" />
-    <meta name="fc:frame:button:4:target" content="https://app.uniswap.org/" />
+    <meta name="fc:frame:button:4:target" content="https://app.uniswap.org/swap?chain=base&inputCurrency=ETH&outputCurrency=0x388e543a5a491e7b42e3fbcd127dd6812ea02d0d" />
 
   </head></html>`);
 }
