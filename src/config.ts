@@ -10,6 +10,5 @@ export const TOKEN_ID = 3n; // First collection is 1
 export const FRAME_METADATA = getFrameMetadata({
   buttons: ['Enter game'],
   image: `${SITE_URL}/opengraph-image.jpg`,
-  aspectRatio: '1:1',
   post_url: `${SITE_URL}/api/frame`,
 });
