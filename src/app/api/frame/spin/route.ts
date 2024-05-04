@@ -59,7 +59,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     }
 
     function weighted_random_number() {
-      const weights = [1, 1, 3, 3, 2, 2, 2, 1];
+      const weights = [3, 2, 3, 1, 3, 1, 2, 1];
       const total_weight = weights.reduce((acc, val) => acc + val, 0);
       const random_weight = Math.floor(Math.random() * total_weight);
       let cumulative_weight = 0;
