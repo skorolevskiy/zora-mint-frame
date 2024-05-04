@@ -125,7 +125,7 @@ enum ResponseType {
 
 function getResponse(type: ResponseType) {
   const IMAGE = {
-    [ResponseType.SUCCESS]: 'status/success.jpg',
+    [ResponseType.SUCCESS]: 'status/success.webp',
     [ResponseType.RECAST]: 'status/recast.png',
     [ResponseType.ALREADY_MINTED]: 'status/already-minted.png',
     [ResponseType.NO_ADDRESS]: 'status/no-address.png',
