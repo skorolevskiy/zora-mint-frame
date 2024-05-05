@@ -1,5 +1,5 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID } from '@/config';
-import { kv } from '@vercel/kv';
+//import { kv } from '@vercel/kv';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   Address,
@@ -7,11 +7,11 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
-import { sql } from '@vercel/postgres';
+//import { sql } from '@vercel/postgres';
 //import { privateKeyToAccount } from 'viem/accounts';
 
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
-const HAS_KV = !!process.env.KV_URL;
+//const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
 // export async function GET(request: Request) {
