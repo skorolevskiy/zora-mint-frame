@@ -14,19 +14,27 @@ const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
 const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const petName = searchParams.get('petName');
+  const ownerName = searchParams.get('ownerName');
+ 
+  try {
+    if (!petName || !ownerName) throw new Error('Pet and owner names required');
+    await sql`INSERT INTO Pets (Name, Owner) VALUES (${petName}, ${ownerName});`;
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+ 
+  const pets = await sql`SELECT * FROM Pets;`;
+  return NextResponse.json({ pets }, { status: 200 });
+}
+
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
     //if (!MINTER_PRIVATE_KEY) throw new Error('MINTER_PRIVATE_KEY is not set');
-
-    try {
-      const result =
-        await sql`CREATE TABLE Pets ( Name varchar(255), Owner varchar(255) );`;
-      return NextResponse.json({ result }, { status: 200 });
-    } catch (error) {
-      return NextResponse.json({ error }, { status: 500 });
-    }
 
     const body: { trustedData?: { messageBytes?: string } } = await req.json();
 
