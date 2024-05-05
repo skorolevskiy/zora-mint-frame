@@ -7,7 +7,6 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
 
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
 const MINTER_PRIVATE_KEY = process.env.MINTER_PRIVATE_KEY as Hex | undefined;
