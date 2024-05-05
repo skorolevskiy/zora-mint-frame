@@ -1,5 +1,6 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID } from '@/config';
 import { kv } from '@vercel/kv';
+import { createKysely } from '@vercel/postgres-kysely';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   Address,
@@ -7,23 +8,25 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
+//import { privateKeyToAccount } from 'viem/accounts';
 
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
-const MINTER_PRIVATE_KEY = process.env.MINTER_PRIVATE_KEY as Hex | undefined;
 const HAS_KV = !!process.env.KV_URL;
+const POSTGRES_URL = process.env.POSTGRES_URL;
+//const transport = http(process.env.RPC_URL);
 
-const transport = http(process.env.RPC_URL);
+interface Database {
+  person: PersonTable;
+}
 
-// const publicClient = createPublicClient({
-//   chain: CHAIN,
-//   transport,
-// });
+const db = createKysely<Database>(
+  connectionString: POSTGRES_URL,
+);
 
-// const walletClient = createWalletClient({
-//   chain: CHAIN,
-//   transport,
-// });
+await db
+  .insertInto('Person')
+  .values({ fid: '1234', address: '0x9292929' })
+  .execute();
 
 export const dynamic = 'force-dynamic';
 
