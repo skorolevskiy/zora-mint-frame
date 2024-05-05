@@ -1,4 +1,4 @@
-import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID } from '@/config';
+import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
 //import { kv } from '@vercel/kv';
 import { NextRequest, NextResponse } from 'next/server';
 import {
@@ -10,7 +10,7 @@ import {
 //import { sql } from '@vercel/postgres';
 //import { privateKeyToAccount } from 'viem/accounts';
 
-const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
+//const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 

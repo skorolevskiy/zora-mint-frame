@@ -1,4 +1,4 @@
-import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID } from '@/config';
+import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
 import { kv } from '@vercel/kv';
 import { NextRequest, NextResponse } from 'next/server';
 import {
@@ -8,11 +8,10 @@ import {
   http,
 } from 'viem';
 
-const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
-const MINTER_PRIVATE_KEY = process.env.MINTER_PRIVATE_KEY as Hex | undefined;
-const HAS_KV = !!process.env.KV_URL;
+//const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
+//const HAS_KV = !!process.env.KV_URL;
 
-const transport = http(process.env.RPC_URL);
+//const transport = http(process.env.RPC_URL);
 
 // const publicClient = createPublicClient({
 //   chain: CHAIN,
@@ -24,7 +23,7 @@ const transport = http(process.env.RPC_URL);
 //   transport,
 // });
 
-export const dynamic = 'force-dynamic';
+//export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
@@ -131,13 +130,17 @@ function getResponse(type: ResponseType) {
   //   type === ResponseType.SUCCESS;
   return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${SITE_URL}/status/liderboard.jpg" />
+    <meta property="fc:frame:image" content="${SITE_URL}/status/rules.webp" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
     <meta name="fc:frame:button:1" content="↩️Back" />
     <meta name="fc:frame:button:1:action" content="post" />
     <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/" />
+
+    <meta name="fc:frame:button:2" content="🔁Ref. link" />
+    <meta name="fc:frame:button:2:action" content="link" />
+    <meta name="fc:frame:button:2:target" content="https://warpcast.com/~/compose?text=Spin%20for%20thrills%20%26%20wins%21%20Join%20Team%20Pill%27s%20Wheel%20of%20Fortune%20now%21&embeds[]=https://zora-mint-frame-three.vercel.app/" />
 
   </head></html>`);
 }
