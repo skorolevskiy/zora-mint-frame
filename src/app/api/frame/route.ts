@@ -14,21 +14,21 @@ const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
 const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const petName = searchParams.get('petName');
-  const ownerName = searchParams.get('ownerName');
+// export async function GET(request: Request) {
+//   const { searchParams } = new URL(request.url);
+//   const petName = searchParams.get('petName');
+//   const ownerName = searchParams.get('ownerName');
  
-  try {
-    if (!petName || !ownerName) throw new Error('Pet and owner names required');
-    await sql`INSERT INTO Pets (Name, Owner) VALUES (${petName}, ${ownerName});`;
-  } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
-  }
+//   try {
+//     if (!petName || !ownerName) throw new Error('Pet and owner names required');
+//     await sql`INSERT INTO Pets (Name, Owner) VALUES (${petName}, ${ownerName});`;
+//   } catch (error) {
+//     return NextResponse.json({ error }, { status: 500 });
+//   }
  
-  const pets = await sql`SELECT * FROM Pets;`;
-  return NextResponse.json({ pets }, { status: 200 });
-}
+//   const pets = await sql`SELECT * FROM Pets;`;
+//   return NextResponse.json({ pets }, { status: 200 });
+// }
 
 export const dynamic = 'force-dynamic';
 
