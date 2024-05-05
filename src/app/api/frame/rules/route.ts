@@ -115,10 +115,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 enum ResponseType {
   SUCCESS,
-  RECAST,
-  ALREADY_MINTED,
   NO_ADDRESS,
-  OUT_OF_GAS,
   ERROR,
 }
 
