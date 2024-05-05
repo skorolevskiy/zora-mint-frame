@@ -1,6 +1,5 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID } from '@/config';
 import { kv } from '@vercel/kv';
-import { createKysely } from '@vercel/postgres-kysely';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   Address,
@@ -8,29 +7,26 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
+import { sql } from '@vercel/postgres';
 //import { privateKeyToAccount } from 'viem/accounts';
 
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
 const HAS_KV = !!process.env.KV_URL;
-const POSTGRES_URL = process.env.POSTGRES_URL;
 //const transport = http(process.env.RPC_URL);
-
-interface Database {
-  person: PersonTable;
-}
-
-const db = createKysely<Database>();
-
-await db
-  .insertInto('Person')
-  .values({ fid: '1234', address: '0x9292929' })
-  .execute();
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
     //if (!MINTER_PRIVATE_KEY) throw new Error('MINTER_PRIVATE_KEY is not set');
+
+    try {
+      const result =
+        await sql`CREATE TABLE Pets ( Name varchar(255), Owner varchar(255) );`;
+      return NextResponse.json({ result }, { status: 200 });
+    } catch (error) {
+      return NextResponse.json({ error }, { status: 500 });
+    }
 
     const body: { trustedData?: { messageBytes?: string } } = await req.json();
 
