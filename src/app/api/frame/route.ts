@@ -19,9 +19,7 @@ interface Database {
   person: PersonTable;
 }
 
-const db = createKysely<Database>(
-  connectionString: POSTGRES_URL,
-);
+const db = createKysely<Database>();
 
 await db
   .insertInto('Person')
