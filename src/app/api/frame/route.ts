@@ -150,7 +150,7 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image" content="${SITE_URL}/${IMAGE}" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
-    <meta content="${viewer_context}">
+    <meta content=${viewer_context}>
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
@@ -185,7 +185,13 @@ async function validateFrameRequest(data: string | undefined) {
       api_key: NEYNAR_API_KEY,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ message_bytes_in_hex: data }),
+    body: JSON.stringify({ 
+      cast_reaction_context: true,
+      follow_context: true,
+      signer_context: false,
+      channel_follow_context: true,
+      message_bytes_in_hex: data
+     }),
   };
 
   return await fetch(
