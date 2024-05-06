@@ -57,9 +57,9 @@ export async function POST(req: NextRequest): Promise<Response> {
 
       if (checkUser) {
         //await addUser(fid_new, username_new, display_name_new);
-        console.warn(checkUser);
+        console.warn(JSON.stringify(checkUser));
       } else {
-        console.warn(checkUser);
+        console.warn(JSON.stringify(checkUser));
       }
 
     // // Check if user has liked and recasted
@@ -172,7 +172,7 @@ async function getUser(fid: string | null): Promise<any> {
     data = await db
     .selectFrom('spiners')
     .where('fid', '=', fid)
-    .executeTakeFirst();
+    .selectAll().execute();
     return data; // Data fetched successfully
   } catch (e : any) {
     if (e.message.includes('relation "players" does not exist')) {
