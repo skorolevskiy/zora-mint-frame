@@ -56,7 +56,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
       const checkUser = await getUser(fid_new);
 
-      if (checkUser) {
+      if (!checkUser) {
         await addUser(fid_new, username_new, display_name_new);
       }
 
