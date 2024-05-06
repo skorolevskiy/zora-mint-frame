@@ -9,8 +9,8 @@ import {
 } from 'viem';
 
 let fid: String, username: String, display_name: String;
-//import { createKysely } from "@vercel/postgres-kysely";
-import { db } from './types'
+import { sql } from '@vercel/postgres'
+import { seed } from './seed'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -52,14 +52,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
-      const result = await db
-  .insertInto('users')
-  .values({
-    name: fid_new,
-    email: username_new,
-    image: display_name_new
-  })
-  .executeTakeFirst()
+      const result = getUsers();
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
@@ -211,4 +204,23 @@ async function validateFrameRequest(data: string | undefined) {
   )
     .then((response) => response.json())
     .catch((err) => console.error(err));
+}
+
+async function getUsers() {
+  let data;
+
+  try {
+    data = await sql`SELECT * FROM users`
+  } catch (e: any) {
+    if (e.message.includes('relation "users" does not exist')) {
+      console.log(
+        'Table does not exist, creating and seeding it with dummy data now...'
+      )
+      // Table is not created yet
+      await seed()
+      data = await sql`SELECT * FROM users`
+    } else {
+      throw e
+    }
+  }
 }
