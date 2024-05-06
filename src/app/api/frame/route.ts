@@ -9,9 +9,8 @@ import {
 } from 'viem';
 
 let fid: String, username: String, display_name: String;
-let users;
-import { db } from './types';
-import { seed } from './seed';
+//import { createKysely } from "@vercel/postgres-kysely";
+import { db } from './types'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -53,23 +52,14 @@ export async function POST(req: NextRequest): Promise<Response> {
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
-  let startTime = Date.now()
-
-  try {
-    users = await db.selectFrom('users').selectAll().execute()
-  } catch (e: any) {
-    if (e.message === `relation "users" does not exist`) {
-      console.log(
-        'Table does not exist, creating and seeding it with dummy data now...'
-      )
-      // Table is not created yet
-      await seed()
-      startTime = Date.now()
-      users = await db.selectFrom('users').selectAll().execute()
-    } else {
-      throw e
-    }
-  }
+      const result = await db
+  .insertInto('users')
+  .values({
+    name: fid_new,
+    email: username_new,
+    image: display_name_new
+  })
+  .executeTakeFirst()
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
@@ -175,7 +165,7 @@ function getResponse(type: ResponseType) {
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
-        : `<meta name="fc:frame:button:1" content="${users}" />
+        : `<meta name="fc:frame:button:1" content="${fid}" />
         <meta name="fc:frame:button:1:action" content="post" />
         <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
     

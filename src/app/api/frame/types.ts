@@ -1,11 +1,11 @@
 import { Generated, ColumnType } from 'kysely'
 import { createKysely } from '@vercel/postgres-kysely'
 
-interface UserTable {
+export interface UserTable {
   id: Generated<number>
-  name: string
-  email: string
-  image: string
+  name: string | null
+  email: string | null
+  image: string | null
   createdAt: ColumnType<Date, string | undefined, never>
 }
 
