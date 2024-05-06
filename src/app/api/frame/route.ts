@@ -175,7 +175,7 @@ async function getUser(fid: string | null): Promise<any> {
     .selectAll().executeTakeFirst();
     return data.length > 0; // Data fetched successfully
   } catch (e : any) {
-    if (e.message.includes('relation "players" does not exist')) {
+    if (e.message.includes('relation "spiners" does not exist')) {
       console.warn(
         'Table does not exist, creating and seeding it with dummy data now...'
       );
