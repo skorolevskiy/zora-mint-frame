@@ -12,7 +12,6 @@ let fid: string, username: string, display_name: string;
 import { sql } from '@vercel/postgres'
 import { seed } from './seed'
 import { db } from './types'
-import { use } from 'react';
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -57,7 +56,10 @@ export async function POST(req: NextRequest): Promise<Response> {
       const checkUser = await getUser(fid_new);
 
       if (checkUser) {
-        await addUser(fid_new, username_new, display_name_new);
+        //await addUser(fid_new, username_new, display_name_new);
+        console.error("added");
+      } else {
+        console.error("not added");
       }
 
     // // Check if user has liked and recasted
