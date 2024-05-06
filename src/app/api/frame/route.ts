@@ -11,7 +11,7 @@ import {
 let fid: string, username: string, display_name: string;
 import { sql } from '@vercel/postgres'
 import { seed } from './seed'
-import { PlayerUpdate, db } from './types'
+import { db } from './types'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -57,9 +57,9 @@ export async function POST(req: NextRequest): Promise<Response> {
 
       if (!checkUser) {
         await addUser(fid_new, username_new, display_name_new);
-        //console.warn('added' + JSON.stringify(checkUser));
+        console.warn('added' + JSON.stringify(checkUser));
       } else {
-        //console.warn('not added' + JSON.stringify(checkUser));
+        console.warn('not added' + JSON.stringify(checkUser));
       }
 
     // // Check if user has liked and recasted
