@@ -189,7 +189,7 @@ async function validateFrameRequest(data: string | undefined) {
     .catch((err) => console.error(err));
 }
 
-export async function updatePerson(fid: string | null, points: number) {
+async function updatePerson(fid: string | null, points: number) {
   await db
   .updateTable('spiners')
   .set((eb) => ({
