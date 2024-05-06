@@ -8,11 +8,12 @@ import {
   http,
 } from 'viem';
 
-let fid: String, username: String;
-//import { sql } from '@vercel/postgres';
-//import { privateKeyToAccount } from 'viem/accounts';
+let fid: String, username: String, display_name: String;
+import { createKysely } from '@vercel/postgres-kysely';
+import { Database } from './types';
 
-//const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
+const db = createKysely<Database>();
+ 
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -48,8 +49,26 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-    fid = status?.action?.interactor?.fid;
-    username = status?.action?.interactor?.username;
+    try {
+
+      fid = JSON.stringify(status?.action?.interactor?.fid);
+
+      const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
+      const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
+      const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
+
+    
+      await db
+      .insertInto('person')
+      .values({ 
+        fid: 123,
+        username: '@eat',
+        display: 'Eat'
+       })
+      .execute();
+    } catch (error) {
+      console.error("Error inserting data:", error);
+    }
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
@@ -151,7 +170,7 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image" content="${SITE_URL}/${IMAGE}" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
-    <meta content="${username}">
+    
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`

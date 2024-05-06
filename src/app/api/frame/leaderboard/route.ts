@@ -1,29 +1,7 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
-import { kv } from '@vercel/kv';
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  Address,
-  Hex,
-  TransactionExecutionError,
-  http,
-} from 'viem';
 
-//const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
-//const HAS_KV = !!process.env.KV_URL;
-
-//const transport = http(process.env.RPC_URL);
-
-// const publicClient = createPublicClient({
-//   chain: CHAIN,
-//   transport,
-// });
-
-// const walletClient = createWalletClient({
-//   chain: CHAIN,
-//   transport,
-// });
-
-//export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
@@ -38,72 +16,6 @@ export async function POST(req: NextRequest): Promise<Response> {
       console.error(status);
       throw new Error('Invalid frame request');
     }
-
-    // // Check if user has liked and recasted
-    // const hasLikedAndRecasted =
-    //   !!status?.action?.cast?.viewer_context?.liked &&
-    //   !!status?.action?.cast?.viewer_context?.recasted;
-
-    // if (!hasLikedAndRecasted) {
-    //   return getResponse(ResponseType.RECAST);
-    // }
-
-    // Check if user has an address connected
-    const address: Address | undefined =
-      status?.action?.interactor?.verifications?.[0];
-
-    if (!address) {
-      return getResponse(ResponseType.NO_ADDRESS);
-    }
-
-    // Check if user has minted before
-    // if (HAS_KV) {
-    //   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
-
-    //   if (prevMintHash) {
-    //     return getResponse(ResponseType.ALREADY_MINTED);
-    //   }
-    // }
-
-    // // Check if user has a balance
-    // const balance = await publicClient.readContract({
-    //   abi: Zora1155ABI,
-    //   address: CONTRACT_ADDRESS,
-    //   functionName: 'balanceOf',
-    //   args: [address, TOKEN_ID],
-    // });
-
-    // if (balance > 5n) {
-    //   return getResponse(ResponseType.ALREADY_MINTED);
-    // }
-
-    // Try minting a new token
-    // const { request } = await publicClient.simulateContract({
-    //   address: CONTRACT_ADDRESS,
-    //   abi: Zora1155ABI,
-    //   functionName: 'adminMint',
-    //   args: [address, TOKEN_ID, 1n, '0x'],
-    //   account: privateKeyToAccount(MINTER_PRIVATE_KEY),
-    // });
-
-    // if (!request) {
-    //   throw new Error('Could not simulate contract');
-    // }
-
-    // try {
-    //   const hash = await walletClient.writeContract(request);
-
-    //   if (HAS_KV) {
-    //     await kv.set(`mint:${address}`, hash);
-    //   }
-    // } catch (error) {
-    //   if (
-    //     error instanceof TransactionExecutionError &&
-    //     error.details.startsWith('gas required exceeds allowance')
-    //   ) {
-    //     return getResponse(ResponseType.OUT_OF_GAS);
-    //   }
-    // }
 
     return getResponse(ResponseType.SUCCESS);
   } catch (error) {
