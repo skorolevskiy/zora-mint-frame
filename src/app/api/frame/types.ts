@@ -1,4 +1,4 @@
-import { Generated, ColumnType, Selectable, Insertable, Updateable } from 'kysely'
+import { Generated, ColumnType } from 'kysely'
 import { createKysely } from '@vercel/postgres-kysely'
 
 export interface PlayersTable {
@@ -14,10 +14,6 @@ export interface PlayersTable {
 export interface Database {
   spiners: PlayersTable
 }
-
-export type Player = Selectable<PlayersTable>
-export type NewPlayer = Insertable<PlayersTable>
-export type PlayerUpdate = Updateable<PlayersTable>
 
 export const db = createKysely<Database>()
 export { sql } from 'kysely'

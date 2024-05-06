@@ -7,7 +7,7 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
-import { PlayerUpdate, db } from '../types';
+import { db } from '../types';
 
 // const HAS_KV = !!process.env.KV_URL;
 
