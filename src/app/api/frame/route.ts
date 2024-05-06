@@ -167,16 +167,22 @@ async function getUser(fid: string | null): Promise<boolean> {
   let data: any;
 
   try {
-    data = await sql`SELECT * FROM users WHERE name = ${fid}`;
+    data = await db
+  .selectFrom('players')
+  .where('fid', '=', fid)
+  .executeTakeFirst();
     return true; // Data fetched successfully
   } catch (e : any) {
-    if (e.message.includes('relation "users" does not exist')) {
+    if (e.message.includes('relation "players" does not exist')) {
       console.log(
         'Table does not exist, creating and seeding it with dummy data now...'
       );
       // Table is not created yet
       await seed();
-      data = await sql`SELECT * FROM users WHERE name = ${fid}`;
+      data = await db
+  .selectFrom('players')
+  .where('fid', '=', fid)
+  .executeTakeFirst();
       return true; // Data fetched successfully after seeding
     } else {
       console.error('Error fetching data:', e);
@@ -187,11 +193,12 @@ async function getUser(fid: string | null): Promise<boolean> {
 
 async function addUser(fid: string | null, username: string | null, display_name: string | null) {
   const result = await db
-  .insertInto('users')
+  .insertInto('players')
   .values({
-    name: fid ? fid : null,
-    email: username ? username : null,
-    image: display_name ? display_name : null
+    fid: fid ? fid : null,
+    username: username ? username : null,
+    name: display_name ? display_name : null,
+    points: 0
   })
   .executeTakeFirst()
 }
