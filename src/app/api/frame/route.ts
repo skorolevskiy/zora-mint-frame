@@ -57,7 +57,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
       if (checkUser) {
         //await addUser(fid_new, username_new, display_name_new);
-        console.error("added");
+        console.error(checkUser);
       } else {
         console.error("not added");
       }
@@ -165,7 +165,7 @@ async function validateFrameRequest(data: string | undefined) {
     .catch((err) => console.error(err));
 }
 
-async function getUser(fid: string | null): Promise<boolean> {
+async function getUser(fid: string | null): Promise<any> {
   let data: any;
 
   try {
@@ -173,7 +173,7 @@ async function getUser(fid: string | null): Promise<boolean> {
     .selectFrom('spiners')
     .where('fid', '=', fid)
     .executeTakeFirst();
-    return true; // Data fetched successfully
+    return data; // Data fetched successfully
   } catch (e : any) {
     if (e.message.includes('relation "players" does not exist')) {
       console.warn(
