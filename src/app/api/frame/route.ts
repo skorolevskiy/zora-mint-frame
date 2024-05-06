@@ -7,6 +7,8 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
+
+let viewer_context;
 //import { sql } from '@vercel/postgres';
 //import { privateKeyToAccount } from 'viem/accounts';
 
@@ -46,14 +48,17 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-    // // Check if user has liked and recasted
-    // const hasLikedAndRecasted =
-    //   !!status?.action?.cast?.viewer_context?.liked &&
-    //   !!status?.action?.cast?.viewer_context?.recasted;
+    viewer_context = status?.action?.cast?.viewer_context;
+    console.log(viewer_context);
 
-    // if (!hasLikedAndRecasted) {
-    //   return getResponse(ResponseType.RECAST);
-    // }
+    // // Check if user has liked and recasted
+    const hasLikedAndRecasted =
+      !!status?.action?.cast?.viewer_context?.liked &&
+      !!status?.action?.cast?.viewer_context?.recasted;
+
+    if (!hasLikedAndRecasted) {
+      return getResponse(ResponseType.RECAST);
+    }
 
     // Check if user has an address connected
     const address: Address | undefined =
