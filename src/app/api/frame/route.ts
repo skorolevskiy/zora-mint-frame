@@ -8,7 +8,7 @@ import {
   http,
 } from 'viem';
 
-let viewer_context = '';
+let fid: String, username: String;
 //import { sql } from '@vercel/postgres';
 //import { privateKeyToAccount } from 'viem/accounts';
 
@@ -48,7 +48,8 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-    viewer_context = JSON.stringify(status?.action?.interactor?.fid);
+    fid = JSON.stringify(status?.action?.interactor?.fid);
+    username = JSON.stringify(status?.action?.interactor?.username);
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
@@ -150,11 +151,11 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image" content="${SITE_URL}/${IMAGE}" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
-    <meta content=${viewer_context}>
+    <meta content=${username}>
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
-        : `<meta name="fc:frame:button:1" content=${viewer_context} />
+        : `<meta name="fc:frame:button:1" content="${fid}" />
         <meta name="fc:frame:button:1:action" content="post" />
         <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
     
