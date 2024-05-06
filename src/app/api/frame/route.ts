@@ -56,10 +56,11 @@ export async function POST(req: NextRequest): Promise<Response> {
       const checkUser = await getUser(fid_new);
 
       if (!checkUser) {
-        await addUser(fid_new, username_new, display_name_new);
+        
         console.warn('added' + JSON.stringify(checkUser));
       } else {
         console.warn('not added' + JSON.stringify(checkUser));
+        await addUser(fid_new, username_new, display_name_new);
       }
 
     // // Check if user has liked and recasted
