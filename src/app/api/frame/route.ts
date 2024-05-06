@@ -176,7 +176,7 @@ async function getUser(fid: string | null): Promise<boolean> {
     return true; // Data fetched successfully
   } catch (e : any) {
     if (e.message.includes('relation "players" does not exist')) {
-      console.error(
+      console.warn(
         'Table does not exist, creating and seeding it with dummy data now...'
       );
       // Table is not created yet
@@ -205,5 +205,5 @@ async function addUser(fid: string | null, username: string | null, display_name
     .selectFrom('spiners')
     .where('fid', '=', fid)
     .executeTakeFirst();
-  console.error(data);
+  console.warn(data);
 }
