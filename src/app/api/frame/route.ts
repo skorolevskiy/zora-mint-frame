@@ -55,7 +55,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
       if (await getUser(fid)) {
-        addUser(fid_new, username_new, display_name_new);
+        await addUser(fid_new, username_new, display_name_new);
       }
 
     // // Check if user has liked and recasted
