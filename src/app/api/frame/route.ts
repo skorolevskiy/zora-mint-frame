@@ -11,6 +11,7 @@ import {
 let fid: String, username: String, display_name: String;
 import { sql } from '@vercel/postgres'
 import { seed } from './seed'
+import { db } from './types'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -52,7 +53,14 @@ export async function POST(req: NextRequest): Promise<Response> {
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
-      const result = getUsers();
+      const result = await db
+  .insertInto('users')
+  .values({
+    name: fid_new,
+    email: username_new,
+    image: display_name_new
+  })
+  .executeTakeFirst()
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
