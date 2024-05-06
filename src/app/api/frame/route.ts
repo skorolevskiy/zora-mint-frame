@@ -11,7 +11,7 @@ import {
 let fid: string, username: string, display_name: string;
 import { sql } from '@vercel/postgres'
 import { seed } from './seed'
-import { db } from './types'
+import { PlayerUpdate, db } from './types'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -172,7 +172,7 @@ async function getUser(fid: string | null): Promise<any> {
     data = await db
     .selectFrom('spiners')
     .where('fid', '=', fid)
-    .selectAll().execute();
+    .selectAll().executeTakeFirst();
     return data.length > 0; // Data fetched successfully
   } catch (e : any) {
     if (e.message.includes('relation "players" does not exist')) {
@@ -199,11 +199,5 @@ async function addUser(fid: string | null, username: string | null, display_name
     points: 0
   })
   .executeTakeFirst()
-
-  let data: any;
-  data = await db
-    .selectFrom('spiners')
-    .where('fid', '=', fid)
-    .executeTakeFirst();
-  console.warn(data);
 }
+

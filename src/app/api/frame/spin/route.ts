@@ -7,6 +7,7 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
+import { PlayerUpdate, db } from '../types';
 
 // const HAS_KV = !!process.env.KV_URL;
 
@@ -68,26 +69,34 @@ export async function POST(req: NextRequest): Promise<Response> {
       }
   }
 
-  
+  const fid = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
   // Пример использования функции:
   const randomNumber = weighted_random_number();
 
   switch (randomNumber) {
     case 1:
+      await updatePerson(fid, 100);
       return getResponse(ResponseType.IMAGE_1);
     case 2:
+      await updatePerson(fid, 200);
       return getResponse(ResponseType.IMAGE_2);
     case 3:
+      await updatePerson(fid, 300);
       return getResponse(ResponseType.IMAGE_3);
     case 4:
+      await updatePerson(fid, 400);
       return getResponse(ResponseType.IMAGE_4);
     case 5:
+      await updatePerson(fid, 500);
       return getResponse(ResponseType.IMAGE_5);
     case 6:
+      await updatePerson(fid, 600);
       return getResponse(ResponseType.IMAGE_6);
     case 7:
+      await updatePerson(fid, 700);
       return getResponse(ResponseType.IMAGE_7);
     case 8:
+      await updatePerson(fid, 800);
       return getResponse(ResponseType.IMAGE_8);
 }
   
@@ -178,4 +187,14 @@ async function validateFrameRequest(data: string | undefined) {
   )
     .then((response) => response.json())
     .catch((err) => console.error(err));
+}
+
+export async function updatePerson(fid: string | null, points: number) {
+  await db
+  .updateTable('spiners')
+  .set((eb) => ({
+    points: eb('points', '+', points),
+  }))
+  .where('fid', '=', fid)
+  .execute()
 }
