@@ -54,7 +54,9 @@ export async function POST(req: NextRequest): Promise<Response> {
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
-      if (await getUser(fid)) {
+      const checkUser = await getUser(fid);
+
+      if (checkUser) {
         await addUser(fid_new, username_new, display_name_new);
       }
 
