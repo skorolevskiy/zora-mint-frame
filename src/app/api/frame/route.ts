@@ -56,7 +56,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
       const checkUser = await getUser(fid_new);
 
-      if (!checkUser) {
+      if (checkUser) {
         await addUser(fid_new, username_new, display_name_new);
       }
 
@@ -178,12 +178,8 @@ async function getUser(fid: string | null): Promise<boolean> {
         'Table does not exist, creating and seeding it with dummy data now...'
       );
       // Table is not created yet
-      await seed();
-      data = await db
-      .selectFrom('spiners')
-      .where('fid', '=', fid)
-      .executeTakeFirst();
-      return true; // Data fetched successfully after seeding
+      //await seed();
+      return false; // Data fetched successfully after seeding
     } else {
       console.error('Error fetching data:', e);
       return false; // Error occurred while fetching data
@@ -201,4 +197,11 @@ async function addUser(fid: string | null, username: string | null, display_name
     points: 0
   })
   .executeTakeFirst()
+
+  let data: any;
+  data = await db
+    .selectFrom('spiners')
+    .where('fid', '=', fid)
+    .executeTakeFirst();
+  console.log(data);
 }
