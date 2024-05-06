@@ -56,7 +56,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
       const checkUser = await getUser(fid_new);
 
-      if (!checkUser) {
+      if (checkUser) {
         await addUser(fid_new, username_new, display_name_new);
       }
 
@@ -168,9 +168,9 @@ async function getUser(fid: string | null): Promise<boolean> {
 
   try {
     data = await db
-  .selectFrom('players')
-  .where('fid', '=', fid)
-  .executeTakeFirst();
+    .selectFrom('players')
+    .where('fid', '=', fid)
+    .executeTakeFirst();
     return true; // Data fetched successfully
   } catch (e : any) {
     if (e.message.includes('relation "players" does not exist')) {
@@ -180,9 +180,9 @@ async function getUser(fid: string | null): Promise<boolean> {
       // Table is not created yet
       await seed();
       data = await db
-  .selectFrom('players')
-  .where('fid', '=', fid)
-  .executeTakeFirst();
+      .selectFrom('players')
+      .where('fid', '=', fid)
+      .executeTakeFirst();
       return true; // Data fetched successfully after seeding
     } else {
       console.error('Error fetching data:', e);
