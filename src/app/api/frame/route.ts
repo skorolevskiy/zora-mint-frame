@@ -48,7 +48,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-    viewer_context = status?.interactor?.fid;
+    viewer_context = JSON.stringify(status?.interactor?.fid);
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
