@@ -8,7 +8,7 @@ import {
   http,
 } from 'viem';
 
-let viewer_context;
+let viewer_context = '';
 //import { sql } from '@vercel/postgres';
 //import { privateKeyToAccount } from 'viem/accounts';
 
@@ -49,7 +49,6 @@ export async function POST(req: NextRequest): Promise<Response> {
     }
 
     viewer_context = status?.action?.cast?.viewer_context;
-    console.log(viewer_context);
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
@@ -142,8 +141,8 @@ function getResponse(type: ResponseType) {
     [ResponseType.OUT_OF_GAS]: 'status/out-of-gas.png',
     [ResponseType.ERROR]: 'status/error.png',
   }[type];
-  // const shouldRetry =
-  //   type === ResponseType.ERROR || type === ResponseType.RECAST;
+  const shouldRetry =
+    type === ResponseType.ERROR || type === ResponseType.RECAST;
   // const successRetry = 
   //   type === ResponseType.SUCCESS;
   return new NextResponse(`<!DOCTYPE html><html><head>
@@ -151,22 +150,26 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image" content="${SITE_URL}/${IMAGE}" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
-
-    <meta name="fc:frame:button:1" content="🎰Spin" />
-    <meta name="fc:frame:button:1:action" content="post" />
-    <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
-
-    <meta name="fc:frame:button:2" content="📖Rules" />
-    <meta name="fc:frame:button:2:action" content="post" />
-    <meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/rules/" />
-
-    <meta name="fc:frame:button:3" content="Leaderboard" />
-    <meta name="fc:frame:button:3:action" content="post" />
-    <meta name="fc:frame:button:3:target" content="${SITE_URL}/api/frame/leaderboard/" />
-
-    <meta name="fc:frame:button:4" content="Buy PILL" />
-    <meta name="fc:frame:button:4:action" content="link" />
-    <meta name="fc:frame:button:4:target" content="https://app.uniswap.org/swap?chain=base&inputCurrency=ETH&outputCurrency=0x388e543a5a491e7b42e3fbcd127dd6812ea02d0d" />
+    <meta content="${viewer_context}">
+    ${
+      shouldRetry
+        ? `<meta property="fc:frame:button:1" content="Try again" />`
+        : `<meta name="fc:frame:button:1" content="🎰Spin" />
+        <meta name="fc:frame:button:1:action" content="post" />
+        <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
+    
+        <meta name="fc:frame:button:2" content="📖Rules" />
+        <meta name="fc:frame:button:2:action" content="post" />
+        <meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/rules/" />
+    
+        <meta name="fc:frame:button:3" content="Leaderboard" />
+        <meta name="fc:frame:button:3:action" content="post" />
+        <meta name="fc:frame:button:3:target" content="${SITE_URL}/api/frame/leaderboard/" />
+    
+        <meta name="fc:frame:button:4" content="Buy PILL" />
+        <meta name="fc:frame:button:4:action" content="link" />
+        <meta name="fc:frame:button:4:target" content="https://app.uniswap.org/swap?chain=base&inputCurrency=ETH&outputCurrency=0x388e543a5a491e7b42e3fbcd127dd6812ea02d0d" />`
+    }
 
   </head></html>`);
 }
