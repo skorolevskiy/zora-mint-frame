@@ -173,7 +173,7 @@ async function getUser(fid: string | null): Promise<any> {
     .selectFrom('spiners')
     .where('fid', '=', fid)
     .selectAll().execute();
-    return data; // Data fetched successfully
+    return data.length > 0; // Data fetched successfully
   } catch (e : any) {
     if (e.message.includes('relation "players" does not exist')) {
       console.warn(
