@@ -54,7 +54,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
-      const checkUser = await getUser(fid);
+      const checkUser = await getUser(fid_new);
 
       if (checkUser) {
         await addUser(fid_new, username_new, display_name_new);
@@ -76,55 +76,6 @@ export async function POST(req: NextRequest): Promise<Response> {
     if (!address) {
       return getResponse(ResponseType.NO_ADDRESS);
     }
-
-    // Check if user has minted before
-    // if (HAS_KV) {
-    //   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
-
-    //   if (prevMintHash) {
-    //     return getResponse(ResponseType.ALREADY_MINTED);
-    //   }
-    // }
-
-    // // Check if user has a balance
-    // const balance = await publicClient.readContract({
-    //   abi: Zora1155ABI,
-    //   address: CONTRACT_ADDRESS,
-    //   functionName: 'balanceOf',
-    //   args: [address, TOKEN_ID],
-    // });
-
-    // if (balance > 5n) {
-    //   return getResponse(ResponseType.ALREADY_MINTED);
-    // }
-
-    // Try minting a new token
-    // const { request } = await publicClient.simulateContract({
-    //   address: CONTRACT_ADDRESS,
-    //   abi: Zora1155ABI,
-    //   functionName: 'adminMint',
-    //   args: [address, TOKEN_ID, 1n, '0x'],
-    //   account: privateKeyToAccount(MINTER_PRIVATE_KEY),
-    // });
-
-    // if (!request) {
-    //   throw new Error('Could not simulate contract');
-    // }
-
-    // try {
-    //   const hash = await walletClient.writeContract(request);
-
-    //   if (HAS_KV) {
-    //     await kv.set(`mint:${address}`, hash);
-    //   }
-    // } catch (error) {
-    //   if (
-    //     error instanceof TransactionExecutionError &&
-    //     error.details.startsWith('gas required exceeds allowance')
-    //   ) {
-    //     return getResponse(ResponseType.OUT_OF_GAS);
-    //   }
-    // }
 
     return getResponse(ResponseType.SUCCESS);
   } catch (error) {
@@ -212,7 +163,7 @@ async function validateFrameRequest(data: string | undefined) {
     .catch((err) => console.error(err));
 }
 
-async function getUser(fid: string): Promise<boolean> {
+async function getUser(fid: string | null): Promise<boolean> {
   let data: any;
 
   try {
