@@ -48,7 +48,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-    viewer_context = JSON.stringify(body.trustedData?.messageBytes);
+    viewer_context = JSON.stringify(status?.action?.interactor?.fid);
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
@@ -154,7 +154,7 @@ function getResponse(type: ResponseType) {
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
-        : `<meta name="fc:frame:button:1" content="🎰Spin" />
+        : `<meta name="fc:frame:button:1" content=${viewer_context} />
         <meta name="fc:frame:button:1:action" content="post" />
         <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
     
