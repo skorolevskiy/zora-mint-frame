@@ -12,7 +12,7 @@ export interface PlayersTable {
 
 // Keys of this interface are table names.
 export interface Database {
-  players: PlayersTable
+  spiners: PlayersTable
 }
 
 export const db = createKysely<Database>()

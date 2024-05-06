@@ -168,7 +168,7 @@ async function getUser(fid: string | null): Promise<boolean> {
 
   try {
     data = await db
-    .selectFrom('players')
+    .selectFrom('spiners')
     .where('fid', '=', fid)
     .executeTakeFirst();
     return true; // Data fetched successfully
@@ -180,7 +180,7 @@ async function getUser(fid: string | null): Promise<boolean> {
       // Table is not created yet
       await seed();
       data = await db
-      .selectFrom('players')
+      .selectFrom('spiners')
       .where('fid', '=', fid)
       .executeTakeFirst();
       return true; // Data fetched successfully after seeding
@@ -193,7 +193,7 @@ async function getUser(fid: string | null): Promise<boolean> {
 
 async function addUser(fid: string | null, username: string | null, display_name: string | null) {
   const result = await db
-  .insertInto('players')
+  .insertInto('spiners')
   .values({
     fid: fid ? fid : null,
     username: username ? username : null,
