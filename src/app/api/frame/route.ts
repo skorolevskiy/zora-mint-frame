@@ -9,11 +9,9 @@ import {
 } from 'viem';
 
 let fid: String, username: String, display_name: String;
-import { createKysely } from '@vercel/postgres-kysely';
-import { Database } from './types';
-
-const db = createKysely<Database>();
- 
+let users;
+import { db } from './types';
+import { seed } from './seed';
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -49,26 +47,29 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-    try {
-
       fid = JSON.stringify(status?.action?.interactor?.fid);
 
       const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
-    
-      await db
-      .insertInto('person')
-      .values({ 
-        fid: 123,
-        username: '@eat',
-        display: 'Eat'
-       })
-      .execute();
-    } catch (error) {
-      console.error("Error inserting data:", error);
+  let startTime = Date.now()
+
+  try {
+    users = await db.selectFrom('users').selectAll().execute()
+  } catch (e: any) {
+    if (e.message === `relation "users" does not exist`) {
+      console.log(
+        'Table does not exist, creating and seeding it with dummy data now...'
+      )
+      // Table is not created yet
+      await seed()
+      startTime = Date.now()
+      users = await db.selectFrom('users').selectAll().execute()
+    } else {
+      throw e
     }
+  }
 
     // // Check if user has liked and recasted
     const hasLikedAndRecasted =
@@ -170,11 +171,11 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image" content="${SITE_URL}/${IMAGE}" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
-    
+
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
-        : `<meta name="fc:frame:button:1" content="${fid}" />
+        : `<meta name="fc:frame:button:1" content="${users}" />
         <meta name="fc:frame:button:1:action" content="post" />
         <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
     
