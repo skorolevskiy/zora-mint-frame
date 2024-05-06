@@ -1,11 +1,8 @@
 import {
-  CHAIN,
-  CONTRACT_ADDRESS,
   FRAME_METADATA,
-  SITE_URL,
-  TOKEN_ID,
+  SITE_URL
 } from '@/config';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   metadataBase: SITE_URL ? new URL(SITE_URL) : undefined,
