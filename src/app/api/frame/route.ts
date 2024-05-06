@@ -214,7 +214,7 @@ async function getUser(fid: string): Promise<boolean> {
   let data: any;
 
   try {
-    data = await sql`SELECT * FROM users WHERE fid = ${fid}`;
+    data = await sql`SELECT * FROM users WHERE name = ${fid}`;
     return true; // Data fetched successfully
   } catch (e : any) {
     if (e.message.includes('relation "users" does not exist')) {
@@ -223,7 +223,7 @@ async function getUser(fid: string): Promise<boolean> {
       );
       // Table is not created yet
       await seed();
-      data = await sql`SELECT * FROM users WHERE fid = ${fid}`;
+      data = await sql`SELECT * FROM users WHERE name = ${fid}`;
       return true; // Data fetched successfully after seeding
     } else {
       console.error('Error fetching data:', e);
