@@ -58,9 +58,10 @@ export async function POST(req: NextRequest): Promise<Response> {
       if (!checkUser) {
         
         console.warn('added' + JSON.stringify(checkUser));
+        await addUser(fid_new, username_new, display_name_new);
       } else {
         console.warn('not added' + JSON.stringify(checkUser));
-        await addUser(fid_new, username_new, display_name_new);
+        //await addUser(fid_new, username_new, display_name_new);
       }
 
     // // Check if user has liked and recasted
