@@ -37,37 +37,49 @@ export async function POST(req: NextRequest): Promise<Response> {
 			spins = User.dailySpins;
 		}
 
-		checkSpins('10', spins);
+		if (spins > 0) {
+			const randomNumber = weighted_random_number();
+
+			switch (randomNumber) {
+				case 1:
+					await updatePoints(fid, 1111, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_1);
+				case 2:
+					await updatePoints(fid, 5555, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_2);
+				case 3:
+					await updatePoints(fid, 2222, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_3);
+				case 4:
+					await updatePoints(fid, 9999, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_4);
+				case 5:
+					await updatePoints(fid, 0, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_5);
+				case 6:
+					await updatePoints(fid, 8888, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_6);
+				case 7:
+					await updatePoints(fid, 4444, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_7);
+				case 8:
+					await updatePoints(fid, 7777, 1);
+					spins--;
+					return getResponse(ResponseType.IMAGE_8);
+			}
+		} else {
+			return getResponse(ResponseType.ERROR);
+		}
 
 		// Пример использования функции:
-		const randomNumber = weighted_random_number();
 
-		switch (randomNumber) {
-			case 1:
-				await updatePoints(fid, 1111, 1);
-				return getResponse(ResponseType.IMAGE_1);
-			case 2:
-				await updatePoints(fid, 5555, 1);
-				return getResponse(ResponseType.IMAGE_2);
-			case 3:
-				await updatePoints(fid, 2222, 1);
-				return getResponse(ResponseType.IMAGE_3);
-			case 4:
-				await updatePoints(fid, 9999, 1);
-				return getResponse(ResponseType.IMAGE_4);
-			case 5:
-				await updatePoints(fid, 0, 1);
-				return getResponse(ResponseType.IMAGE_5);
-			case 6:
-				await updatePoints(fid, 8888, 1);
-				return getResponse(ResponseType.IMAGE_6);
-			case 7:
-				await updatePoints(fid, 4444, 1);
-				return getResponse(ResponseType.IMAGE_7);
-			case 8:
-				await updatePoints(fid, 7777, 1);
-				return getResponse(ResponseType.IMAGE_8);
-		}
 
 		return getResponse(ResponseType.IMAGE_8);
 		// Check if user has minted before
@@ -170,14 +182,4 @@ function weighted_random_number() {
 			return i + 1;
 		}
 	}
-}
-
-function checkSpins(time: string, spins: number) {
-    const today: string = new Date().toISOString().split('T')[0]; // Текущая дата
-
-    if (spins > 0) {
-        return getResponse(ResponseType.ERROR);
-    } else {
-        return getResponse(ResponseType.ERROR);
-    }
 }
