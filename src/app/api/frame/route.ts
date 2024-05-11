@@ -193,13 +193,16 @@ async function getUser(fid: string | null): Promise<any> {
 }
 
 async function addUser(fid: string | null, username: string | null, display_name: string | null) {
+
   const result = await db
   .insertInto('spiners')
   .values({
     fid: fid ? fid : null,
     username: username ? username : null,
     name: display_name ? display_name : null,
-    points: 0
+    points: 0,
+    dailySpins: 3,
+    lastSpin: new Date().toISOString().split('T')[0]
   })
   .executeTakeFirst()
 }

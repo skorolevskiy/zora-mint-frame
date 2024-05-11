@@ -9,6 +9,7 @@ export async function seed() {
       name VARCHAR(255),
       points INTEGER,
       dailySpins INTEGER,
+      lastSpin: TIMESTAMP,
       "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
     `

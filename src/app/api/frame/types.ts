@@ -7,6 +7,8 @@ export interface PlayersTable {
   username: string | null
   name: string | null
   points: number
+  dailySpins: number
+  lastSpin: ColumnType<Date, string | undefined, never>
   createdAt: ColumnType<Date, string | undefined, never>
 }
 
