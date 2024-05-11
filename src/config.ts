@@ -10,14 +10,14 @@ export const TOKEN_ID = 3n; // First collection is 1
 export const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
 
 const imageData: FrameImageMetadata = {
-  src: `${SITE_URL}/opengraph-image.jpg`,
-  aspectRatio: '1:1' // или '1.91:1'
+	src: `${SITE_URL}/opengraph-image.jpg`,
+	aspectRatio: '1:1' // или '1.91:1'
 };
 
 export const FRAME_METADATA = getFrameMetadata({
-  buttons: [{
-    label: 'Enter Game',
-  },],
-  image: imageData,
-  post_url: `${SITE_URL}/api/frame`,
+	buttons: [{
+		label: 'Enter Game',
+	},],
+	image: imageData,
+	post_url: `${SITE_URL}/api/frame`,
 });

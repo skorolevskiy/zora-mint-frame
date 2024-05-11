@@ -4,41 +4,41 @@ import { NextRequest, NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<Response> {
-  try {
-    const body: { trustedData?: { messageBytes?: string } } = await req.json();
+	try {
+		const body: { trustedData?: { messageBytes?: string } } = await req.json();
 
-    // Check if frame request is valid
-    const status = await validateFrameRequest(body.trustedData?.messageBytes);
+		// Check if frame request is valid
+		const status = await validateFrameRequest(body.trustedData?.messageBytes);
 
-    if (!status?.valid) {
-      console.error(status);
-      throw new Error('Invalid frame request');
-    }
+		if (!status?.valid) {
+			console.error(status);
+			throw new Error('Invalid frame request');
+		}
 
-    return getResponse(ResponseType.SUCCESS);
-  } catch (error) {
-    console.error(error);
-    return getResponse(ResponseType.ERROR);
-  }
+		return getResponse(ResponseType.SUCCESS);
+	} catch (error) {
+		console.error(error);
+		return getResponse(ResponseType.ERROR);
+	}
 }
 
 enum ResponseType {
-  SUCCESS,
-  NO_ADDRESS,
-  ERROR,
+	SUCCESS,
+	NO_ADDRESS,
+	ERROR,
 }
 
 function getResponse(type: ResponseType) {
-  const IMAGE = {
-    [ResponseType.SUCCESS]: 'status/success.png',
-    [ResponseType.NO_ADDRESS]: 'status/no-address.png',
-    [ResponseType.ERROR]: 'status/error.png',
-  }[type];
-  // const shouldRetry =
-  //   type === ResponseType.ERROR || type === ResponseType.RECAST;
-  // const successRetry = 
-  //   type === ResponseType.SUCCESS;
-  return new NextResponse(`<!DOCTYPE html><html><head>
+	const IMAGE = {
+		[ResponseType.SUCCESS]: 'status/success.png',
+		[ResponseType.NO_ADDRESS]: 'status/no-address.png',
+		[ResponseType.ERROR]: 'status/error.png',
+	}[type];
+	// const shouldRetry =
+	//   type === ResponseType.ERROR || type === ResponseType.RECAST;
+	// const successRetry = 
+	//   type === ResponseType.SUCCESS;
+	return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
     <meta property="fc:frame:image" content="${SITE_URL}/status/rules.webp" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
@@ -56,23 +56,23 @@ function getResponse(type: ResponseType) {
 }
 
 async function validateFrameRequest(data: string | undefined) {
-  if (!NEYNAR_API_KEY) throw new Error('NEYNAR_API_KEY is not set');
-  if (!data) throw new Error('No data provided');
+	if (!NEYNAR_API_KEY) throw new Error('NEYNAR_API_KEY is not set');
+	if (!data) throw new Error('No data provided');
 
-  const options = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      api_key: NEYNAR_API_KEY,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({ message_bytes_in_hex: data }),
-  };
+	const options = {
+		method: 'POST',
+		headers: {
+			accept: 'application/json',
+			api_key: NEYNAR_API_KEY,
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify({ message_bytes_in_hex: data }),
+	};
 
-  return await fetch(
-    'https://api.neynar.com/v2/farcaster/frame/validate',
-    options,
-  )
-    .then((response) => response.json())
-    .catch((err) => console.error(err));
+	return await fetch(
+		'https://api.neynar.com/v2/farcaster/frame/validate',
+		options,
+	)
+		.then((response) => response.json())
+		.catch((err) => console.error(err));
 }
