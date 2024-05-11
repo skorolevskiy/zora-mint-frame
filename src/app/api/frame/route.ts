@@ -61,8 +61,8 @@ export async function POST(req: NextRequest): Promise<Response> {
       } else {
         console.warn('added: ' + JSON.stringify(User));
         
-        let data = JSON.parse(User);
-        points = data.points;
+        //let data = JSON.parse(User);
+        points = User.points;
       }
 
     // // Check if user has liked and recasted
