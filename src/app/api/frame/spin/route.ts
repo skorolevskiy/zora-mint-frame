@@ -75,28 +75,28 @@ export async function POST(req: NextRequest): Promise<Response> {
 
   switch (randomNumber) {
     case 1:
-      await updatePerson(fid, 100);
+      await updatePerson(fid, 1111);
       return getResponse(ResponseType.IMAGE_1);
     case 2:
-      await updatePerson(fid, 200);
+      await updatePerson(fid, 5555);
       return getResponse(ResponseType.IMAGE_2);
     case 3:
-      await updatePerson(fid, 300);
+      await updatePerson(fid, 2222);
       return getResponse(ResponseType.IMAGE_3);
     case 4:
-      await updatePerson(fid, 400);
+      await updatePerson(fid, 9999);
       return getResponse(ResponseType.IMAGE_4);
     case 5:
-      await updatePerson(fid, 500);
+      await updatePerson(fid, 0);
       return getResponse(ResponseType.IMAGE_5);
     case 6:
-      await updatePerson(fid, 600);
+      await updatePerson(fid, 8888);
       return getResponse(ResponseType.IMAGE_6);
     case 7:
-      await updatePerson(fid, 700);
+      await updatePerson(fid, 4444);
       return getResponse(ResponseType.IMAGE_7);
     case 8:
-      await updatePerson(fid, 800);
+      await updatePerson(fid, 7777);
       return getResponse(ResponseType.IMAGE_8);
 }
   
