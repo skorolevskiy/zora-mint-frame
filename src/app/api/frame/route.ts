@@ -8,7 +8,7 @@ import {
   http,
 } from 'viem';
 
-let fid: string, username: string, display_name: string;
+let fid: string, username: string, display_name: string, points: number;
 import { sql } from '@vercel/postgres'
 import { seed } from './seed'
 import { db } from './types'
@@ -47,20 +47,22 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-      fid = JSON.stringify(status?.action?.interactor?.fid);
+      //fid = JSON.stringify(status?.action?.interactor?.fid);
 
       const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 
-      const checkUser = await getUser(fid_new);
+      const User = await getUser(fid_new);
 
-      if (!checkUser) {
-        console.warn('not added: ' + JSON.stringify(checkUser));
+      if (!User) {
+        console.warn('not added: ' + JSON.stringify(User));
         await addUser(fid_new, username_new, display_name_new);
       } else {
-        console.warn('added: ' + JSON.stringify(checkUser));
-        //await addUser(fid_new, username_new, display_name_new);
+        console.warn('added: ' + JSON.stringify(User));
+        
+        let data = JSON.parse(User);
+        points = data.points;
       }
 
     // // Check if user has liked and recasted
@@ -118,7 +120,7 @@ function getResponse(type: ResponseType) {
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
-        : `<meta name="fc:frame:button:1" content="${fid}" />
+        : `<meta name="fc:frame:button:1" content="${points}" />
         <meta name="fc:frame:button:1:action" content="post" />
         <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
     
