@@ -8,6 +8,7 @@ export async function seed() {
       username VARCHAR(255) UNIQUE NOT NULL,
       name VARCHAR(255),
       points INTEGER,
+      dailySpins INTEGER,
       "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
     `
