@@ -1,7 +1,9 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
 import { NextRequest, NextResponse } from 'next/server';
+import {getUser} from './../types';
 
 export const dynamic = 'force-dynamic';
+let points: number;
 
 export async function POST(req: NextRequest): Promise<Response> {
 	try {
@@ -13,6 +15,16 @@ export async function POST(req: NextRequest): Promise<Response> {
 		if (!status?.valid) {
 			console.error(status);
 			throw new Error('Invalid frame request');
+		}
+
+		const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
+
+		const User = await getUser(fid_new);
+
+		if (!User) {
+			points = 0;
+		} else {
+			points = User.points;
 		}
 
 		return getResponse(ResponseType.SUCCESS);
@@ -43,6 +55,10 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image" content="${SITE_URL}/status/liderboard.jpg" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
+
+	<meta name="fc:frame:button:1" content="🔄${points} points" />
+    <meta name="fc:frame:button:1:action" content="post" />
+    <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/leaderboard/" />
 
     <meta name="fc:frame:button:1" content="↩️Back" />
     <meta name="fc:frame:button:1:action" content="post" />
