@@ -5,8 +5,6 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
-    //if (!MINTER_PRIVATE_KEY) throw new Error('MINTER_PRIVATE_KEY is not set');
-
     const body: { trustedData?: { messageBytes?: string } } = await req.json();
 
     // Check if frame request is valid

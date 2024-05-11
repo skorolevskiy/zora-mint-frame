@@ -7,28 +7,16 @@ import {
   TransactionExecutionError,
   http,
 } from 'viem';
-import { db } from '../types';
+import { updatePoints, getUser } from '../types';
 
 // const HAS_KV = !!process.env.KV_URL;
-
 // const transport = http(process.env.RPC_URL);
 
-// const publicClient = createPublicClient({
-//   chain: CHAIN,
-//   transport,
-// });
-
-// const walletClient = createWalletClient({
-//   chain: CHAIN,
-//   transport,
-// });
-
 export const dynamic = 'force-dynamic';
+let spins: number;
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
-    //if (!MINTER_PRIVATE_KEY) throw new Error('MINTER_PRIVATE_KEY is not set');
-
     const body: { trustedData?: { messageBytes?: string } } = await req.json();
 
     // Check if frame request is valid
@@ -39,22 +27,15 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-    // // Check if user has liked and recasted
-    // const hasLikedAndRecasted =
-    //   !!status?.action?.cast?.viewer_context?.liked &&
-    //   !!status?.action?.cast?.viewer_context?.recasted;
+    const fid = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
 
-    // if (!hasLikedAndRecasted) {
-    //   return getResponse(ResponseType.RECAST);
-    // }
+    const User = await getUser(fid);
 
-    // Check if user has an address connected
-    // const address: Address | undefined =
-    //   status?.action?.interactor?.verifications?.[0];
-
-    // if (!address) {
-    //   return getResponse(ResponseType.NO_ADDRESS);
-    // }
+    if (!User) {
+      spins = 0;
+    } else {
+      spins = User.dailySpins;
+    }
 
     function weighted_random_number() {
       const weights = [4, 2, 3, 1, 5, 1, 2, 1];
@@ -70,34 +51,34 @@ export async function POST(req: NextRequest): Promise<Response> {
       }
   }
 
-  const fid = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
+  
   // Пример использования функции:
   const randomNumber = weighted_random_number();
 
   switch (randomNumber) {
     case 1:
-      await updatePerson(fid, 1111);
+      await updatePoints(fid, 1111);
       return getResponse(ResponseType.IMAGE_1);
     case 2:
-      await updatePerson(fid, 5555);
+      await updatePoints(fid, 5555);
       return getResponse(ResponseType.IMAGE_2);
     case 3:
-      await updatePerson(fid, 2222);
+      await updatePoints(fid, 2222);
       return getResponse(ResponseType.IMAGE_3);
     case 4:
-      await updatePerson(fid, 9999);
+      await updatePoints(fid, 9999);
       return getResponse(ResponseType.IMAGE_4);
     case 5:
-      await updatePerson(fid, 0);
+      await updatePoints(fid, 0);
       return getResponse(ResponseType.IMAGE_5);
     case 6:
-      await updatePerson(fid, 8888);
+      await updatePoints(fid, 8888);
       return getResponse(ResponseType.IMAGE_6);
     case 7:
-      await updatePerson(fid, 4444);
+      await updatePoints(fid, 4444);
       return getResponse(ResponseType.IMAGE_7);
     case 8:
-      await updatePerson(fid, 7777);
+      await updatePoints(fid, 7777);
       return getResponse(ResponseType.IMAGE_8);
 }
   
@@ -157,7 +138,7 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
-    <meta name="fc:frame:button:1" content="🔄Spin again" />
+    <meta name="fc:frame:button:1" content="🔄${spins} Free spins" />
     <meta name="fc:frame:button:1:action" content="post" />
     <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
 
@@ -190,12 +171,3 @@ async function validateFrameRequest(data: string | undefined) {
     .catch((err) => console.error(err));
 }
 
-async function updatePerson(fid: string | null, points: number) {
-  await db
-  .updateTable('spiners')
-  .set((eb) => ({
-    points: eb('points', '+', points),
-  }))
-  .where('fid', '=', fid)
-  .execute()
-}

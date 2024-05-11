@@ -8,35 +8,15 @@ import {
   http,
 } from 'viem';
 
-let fid: string, username: string, display_name: string, points: number;
-import { sql } from '@vercel/postgres'
-import { seed } from './seed'
-import { db } from './types'
+let fid: string, points: number, spins: number;
+import { addUser, getUser } from './types'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
-
-// export async function GET(request: Request) {
-//   const { searchParams } = new URL(request.url);
-//   const petName = searchParams.get('petName');
-//   const ownerName = searchParams.get('ownerName');
- 
-//   try {
-//     if (!petName || !ownerName) throw new Error('Pet and owner names required');
-//     await sql`INSERT INTO Pets (Name, Owner) VALUES (${petName}, ${ownerName});`;
-//   } catch (error) {
-//     return NextResponse.json({ error }, { status: 500 });
-//   }
- 
-//   const pets = await sql`SELECT * FROM Pets;`;
-//   return NextResponse.json({ pets }, { status: 200 });
-// }
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
-    //if (!MINTER_PRIVATE_KEY) throw new Error('MINTER_PRIVATE_KEY is not set');
-
     const body: { trustedData?: { messageBytes?: string } } = await req.json();
 
     // Check if frame request is valid
@@ -47,8 +27,6 @@ export async function POST(req: NextRequest): Promise<Response> {
       throw new Error('Invalid frame request');
     }
 
-      //fid = JSON.stringify(status?.action?.interactor?.fid);
-
       const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
       const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
       const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
@@ -58,11 +36,14 @@ export async function POST(req: NextRequest): Promise<Response> {
       if (!User) {
         console.warn('not added: ' + JSON.stringify(User));
         await addUser(fid_new, username_new, display_name_new);
+        points = 0;
+        spins = 3;
       } else {
         console.warn('added: ' + JSON.stringify(User));
         
         //let data = JSON.parse(User);
         points = User.points;
+        spins = User.dailySpins;
       }
 
     // // Check if user has liked and recasted
@@ -120,7 +101,7 @@ function getResponse(type: ResponseType) {
     ${
       shouldRetry
         ? `<meta property="fc:frame:button:1" content="Try again" />`
-        : `<meta name="fc:frame:button:1" content="${points} points" />
+        : `<meta name="fc:frame:button:1" content="${spins} Free spins" />
         <meta name="fc:frame:button:1:action" content="post" />
         <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
     
@@ -168,42 +149,5 @@ async function validateFrameRequest(data: string | undefined) {
     .catch((err) => console.error(err));
 }
 
-async function getUser(fid: string | null): Promise<any> {
-  let data: any;
 
-  try {
-    data = await db
-    .selectFrom('spiners')
-    .where('fid', '=', fid)
-    .selectAll().executeTakeFirst();
-    return data; // Data fetched successfully
-  } catch (e : any) {
-    if (e.message.includes('relation "spiners" does not exist')) {
-      console.warn(
-        'Table does not exist, creating and seeding it with dummy data now...'
-      );
-      // Table is not created yet
-      //await seed();
-      return false; // Data fetched successfully after seeding
-    } else {
-      console.error('Error fetching data:', e);
-      return false; // Error occurred while fetching data
-    }
-  }
-}
-
-async function addUser(fid: string | null, username: string | null, display_name: string | null) {
-
-  const result = await db
-  .insertInto('spiners')
-  .values({
-    fid: fid ? fid : null,
-    username: username ? username : null,
-    name: display_name ? display_name : null,
-    points: 0,
-    dailySpins: 3,
-    lastSpin: new Date().toISOString().split('T')[0]
-  })
-  .executeTakeFirst()
-}
 
