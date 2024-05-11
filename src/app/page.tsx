@@ -22,6 +22,7 @@ export default function Home() {
       >
         Go to Farcaster!
       </h1>
+      <script async src="${SITE_URL}/public/js/pills.js"></script>
     </div>
   );
 }
