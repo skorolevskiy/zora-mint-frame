@@ -47,12 +47,11 @@ export async function POST(req: NextRequest): Promise<Response> {
 			dateString = User.lastSpin;
 		}
 
-		const today: Date = new Date();
-		const lastSpin = new Date(dateString);
+		const today: string = new Date().toLocaleString().split(',')[0];
+		const lastSpin = new Date(dateString).toLocaleString().split(',')[0];
 
-		if (lastSpin.getTime() !== today.getTime()) {
-			const newDate: string = new Date().toISOString().split('T')[0];
-			await updateDate(fid_new, newDate);
+		if (lastSpin !== today) {
+			await updateDate(fid_new, today);
 			spins = 3;
 		}
 

@@ -54,7 +54,7 @@ export async function addUser(fid: string | null, username: string | null, displ
 			name: display_name ? display_name : null,
 			points: 0,
 			dailySpins: 3,
-			lastSpin: new Date().toISOString().split('T')[0]
+			lastSpin: new Date().toLocaleString().split('T')[0]
 		})
 		.executeTakeFirst()
 }
@@ -75,7 +75,7 @@ export async function updateDate(fid: string | null, date: string) {
 		.updateTable('spiners')
 		.set((eb) => ({
 			dailySpins: 3,
-			lastSpin: new Date().toISOString().split('T')[0],
+			lastSpin: new Date().toLocaleString().split(',')[0],
 		}))
 		.where('fid', '=', fid)
 		.execute()
