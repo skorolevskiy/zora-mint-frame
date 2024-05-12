@@ -69,3 +69,14 @@ export async function updatePoints(fid: string | null, points: number, dailySpin
 		.where('fid', '=', fid)
 		.execute()
 }
+
+export async function updateDate(fid: string | null, date: string) {
+	await db
+		.updateTable('spiners')
+		.set((eb) => ({
+			dailySpins: 3,
+			lastSpin: new Date().toISOString().split('T')[0],
+		}))
+		.where('fid', '=', fid)
+		.execute()
+}

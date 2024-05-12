@@ -8,8 +8,8 @@ import {
 	http,
 } from 'viem';
 
-let fid: string, points: number, spins: number;
-import { addUser, getUser } from './types'
+let fid: string, points: number, spins: number, date: string;
+import { addUser, getUser, updateDate } from './types'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
 
@@ -44,6 +44,14 @@ export async function POST(req: NextRequest): Promise<Response> {
 			//let data = JSON.parse(User);
 			points = User.points;
 			spins = User.dailySpins;
+			date = User.lastSpin;
+		}
+
+		const today: string = new Date().toISOString().split('T')[0];
+
+		if (date !== today) {
+			await updateDate(fid_new, today);
+			spins = 3;
 		}
 
 		// // Check if user has liked and recasted

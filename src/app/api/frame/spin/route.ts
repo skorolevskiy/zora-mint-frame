@@ -7,13 +7,13 @@ import {
 	TransactionExecutionError,
 	http,
 } from 'viem';
-import { updatePoints, getUser } from '../types';
+import { updatePoints, updateDate, getUser } from '../types';
 
 // const HAS_KV = !!process.env.KV_URL;
 // const transport = http(process.env.RPC_URL);
 
 export const dynamic = 'force-dynamic';
-let spins: number;
+let spins: number, date: string;
 
 export async function POST(req: NextRequest): Promise<Response> {
 	try {
@@ -77,9 +77,6 @@ export async function POST(req: NextRequest): Promise<Response> {
 		} else {
 			return getResponse(ResponseType.ERROR);
 		}
-
-		// Пример использования функции:
-
 
 		return getResponse(ResponseType.IMAGE_8);
 		// Check if user has minted before
