@@ -8,7 +8,7 @@ import {
 	http,
 } from 'viem';
 
-let fid: string, points: number, spins: number, date: string;
+let fid: string, points: number, spins: number, dateString: string;
 import { addUser, getUser, updateDate } from './types'
 //const HAS_KV = !!process.env.KV_URL;
 //const transport = http(process.env.RPC_URL);
@@ -44,13 +44,15 @@ export async function POST(req: NextRequest): Promise<Response> {
 			//let data = JSON.parse(User);
 			points = User.points;
 			spins = User.dailySpins;
-			date = User.lastSpin;
+			dateString = User.lastSpin;
 		}
 
-		const today: string = new Date().toISOString().split('T')[0];
+		const today: Date = new Date();
+		const lastSpin = new Date(dateString);
 
-		if (date !== today) {
-			await updateDate(fid_new, today);
+		if (lastSpin.getTime() !== today.getTime()) {
+			const newDate: string = new Date().toISOString().split('T')[0];
+			await updateDate(fid_new, newDate);
 			spins = 3;
 		}
 
