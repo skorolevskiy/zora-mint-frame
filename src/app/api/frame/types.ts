@@ -89,7 +89,7 @@ export async function getTopPlayers(): Promise<any> {
 			.select(['fid', 'points'])
 			.orderBy('points')
 			.limit(5)
-			.executeTakeFirst();
+			.execute();
 		return data;
 	} catch (e: any) {
 		console.error('Ошибка получения данных:', e.message);
