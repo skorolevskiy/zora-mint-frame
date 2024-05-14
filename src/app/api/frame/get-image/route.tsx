@@ -8,8 +8,9 @@ export async function GET() {
       <div
         style={{
           fontSize: 40,
+          fontWeight: 'bold',
           color: 'black',
-          background: 'white',
+          background: '#0052FF',
           width: '100%',
           height: '100%',
           padding: '50px 200px',
@@ -18,12 +19,12 @@ export async function GET() {
           alignItems: 'center',
         }}
       >
-        👋 Hello
+        Leaderboard
       </div>
     ),
     {
-      width: 1200,
-      height: 630,
+      width: 960,
+      height: 960,
     },
   );
 }
