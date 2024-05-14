@@ -7,15 +7,15 @@ export async function GET() {
     (
       <div
         style={{
-          fontSize: 40,
+          fontSize: 60,
           fontWeight: 'bold',
-          color: 'black',
+          color: 'white',
           background: '#0052FF',
           width: '100%',
           height: '100%',
           padding: '50px 200px',
           textAlign: 'center',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           alignItems: 'center',
         }}
       >
