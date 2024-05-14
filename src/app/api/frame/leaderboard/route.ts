@@ -1,7 +1,7 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
 import { NextRequest, NextResponse } from 'next/server';
 import { getUser, getTopPlayers } from './../types';
-import handler from './getImage';
+import handler from './get-image';
 
 export const dynamic = 'force-dynamic';
 let points: number;
@@ -33,21 +33,21 @@ export async function POST(req: NextRequest): Promise<Response> {
 		// 	points = User.points;
 		// }
 
-		// const topPlayers = await getTopPlayers();
+		const topPlayers = await getTopPlayers();
 
-		// if (!topPlayers) {
-		// 	console.warn('no top users')
-		// } else {
-		// 	console.warn(topPlayers)
-		// }
-
-		const image = await handler();
-
-		if (!image) {
+		if (!topPlayers) {
 			console.warn('no top users')
 		} else {
-			console.warn(image)
+			console.warn(topPlayers)
 		}
+
+		// const image = await handler();
+
+		// if (!image) {
+		// 	console.warn('no top users')
+		// } else {
+		// 	console.warn(image)
+		// }
 
 		return getResponse(ResponseType.SUCCESS);
 	} catch (error) {
@@ -74,7 +74,7 @@ function getResponse(type: ResponseType) {
 	//   type === ResponseType.SUCCESS;
 	return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${SITE_URL}/status/liderboard.jpg" />
+    <meta property="fc:frame:image" content="${SITE_URL}/api/frame/leaderboard/get-image" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
