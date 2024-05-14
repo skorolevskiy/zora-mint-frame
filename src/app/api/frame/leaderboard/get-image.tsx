@@ -1,10 +1,8 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'next/og';
+// App router includes @vercel/og.
+// No need to install it.
  
-export const config = {
-  runtime: 'edge',
-};
- 
-export default async function handler() {
+export async function GET() {
   return new ImageResponse(
     (
       <div
@@ -20,7 +18,7 @@ export default async function handler() {
           alignItems: 'center',
         }}
       >
-        👋 Hello 你好 नमस्ते こんにちは สวัสดีค่ะ 안녕 добрий день Hallá
+        👋 Hello
       </div>
     ),
     {

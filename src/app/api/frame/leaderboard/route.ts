@@ -1,7 +1,6 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
 import { NextRequest, NextResponse } from 'next/server';
 import { getUser, getTopPlayers } from './../types';
-import handler from './get-image';
 
 export const dynamic = 'force-dynamic';
 let points: number;
