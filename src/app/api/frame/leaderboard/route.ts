@@ -1,6 +1,7 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
 import { NextRequest, NextResponse } from 'next/server';
 import { getUser, getTopPlayers } from './../types';
+import handler from './getImage';
 
 export const dynamic = 'force-dynamic';
 let points: number;
@@ -32,12 +33,20 @@ export async function POST(req: NextRequest): Promise<Response> {
 		// 	points = User.points;
 		// }
 
-		const topPlayers = await getTopPlayers();
+		// const topPlayers = await getTopPlayers();
 
-		if (!topPlayers) {
+		// if (!topPlayers) {
+		// 	console.warn('no top users')
+		// } else {
+		// 	console.warn(topPlayers)
+		// }
+
+		const image = await handler();
+
+		if (!image) {
 			console.warn('no top users')
 		} else {
-			console.warn(topPlayers)
+			console.warn(image)
 		}
 
 		return getResponse(ResponseType.SUCCESS);
