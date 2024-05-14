@@ -5,10 +5,10 @@ import { getUser, getTopPlayers } from './../types';
 export const dynamic = 'force-dynamic';
 let points: number;
 
-import { ImageResponse } from '@vercel/og';
-export const config = {
-	runtime: 'edge',
-  };
+// import { ImageResponse } from '@vercel/og';
+// export const config = {
+// 	runtime: 'edge',
+//   };
 
 export async function POST(req: NextRequest): Promise<Response> {
 	try {
