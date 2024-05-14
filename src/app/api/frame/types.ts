@@ -80,3 +80,19 @@ export async function updateDate(fid: string | null) {
 		.where('fid', '=', fid)
 		.execute()
 }
+
+export async function getTopPlayers(): Promise<any> {
+	let data: any;
+	try {
+		data = await db
+			.selectFrom('spiners')
+			.select(['fid', 'points'])
+			.orderBy('points')
+			.limit(5)
+			.executeTakeFirst();
+		return data;
+	} catch (e: any) {
+		console.error('Ошибка получения данных:', e.message);
+		return false;
+	}
+}

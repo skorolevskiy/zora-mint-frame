@@ -1,9 +1,14 @@
 import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
 import { NextRequest, NextResponse } from 'next/server';
-import {getUser} from './../types';
+import { getUser, getTopPlayers } from './../types';
 
 export const dynamic = 'force-dynamic';
 let points: number;
+
+import { ImageResponse } from '@vercel/og';
+export const config = {
+	runtime: 'edge',
+  };
 
 export async function POST(req: NextRequest): Promise<Response> {
 	try {
@@ -19,12 +24,20 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 		const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
 
-		const User = await getUser(fid_new);
+		// const User = await getUser(fid_new);
 
-		if (!User) {
-			points = 0;
+		// if (!User) {
+		// 	points = 0;
+		// } else {
+		// 	points = User.points;
+		// }
+
+		const topPlayers = await getTopPlayers();
+
+		if (!topPlayers) {
+			console.warn('no top users')
 		} else {
-			points = User.points;
+			console.warn(topPlayers)
 		}
 
 		return getResponse(ResponseType.SUCCESS);
