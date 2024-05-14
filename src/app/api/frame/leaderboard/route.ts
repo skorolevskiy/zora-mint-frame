@@ -8,7 +8,7 @@ let points: number;
 // import { ImageResponse } from '@vercel/og';
 // export const config = {
 // 	runtime: 'edge',
-//   };
+// };
 
 export async function POST(req: NextRequest): Promise<Response> {
 	try {
