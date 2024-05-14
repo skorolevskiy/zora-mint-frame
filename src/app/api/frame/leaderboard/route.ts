@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUser, getTopPlayers } from './../types';
 
 export const dynamic = 'force-dynamic';
-let points: number;
+let points: number, fid: string | null;
 
 // import { ImageResponse } from '@vercel/og';
 // export const config = {
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 			throw new Error('Invalid frame request');
 		}
 
-		const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
+		fid = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
 
 		// const User = await getUser(fid_new);
 
@@ -73,7 +73,7 @@ function getResponse(type: ResponseType) {
 	//   type === ResponseType.SUCCESS;
 	return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${SITE_URL}/api/frame/get-image" />
+    <meta property="fc:frame:image" content="${SITE_URL}/api/frame/get-image?fid${fid}" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
