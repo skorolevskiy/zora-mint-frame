@@ -24,6 +24,8 @@ export async function GET(request: Request) {
       (
         <div
           style={{
+            fontSize: 40,
+            color: 'black',
             background: '#0052FF',
             width: '100%',
             height: '100%',
