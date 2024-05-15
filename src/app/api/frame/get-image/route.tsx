@@ -7,9 +7,9 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
  
     // ?title=<title>
-    const hasTitle = searchParams.has('title');
-    const title = hasTitle
-      ? searchParams.get('title')?.slice(0, 100)
+    const hasFid = searchParams.has('fid');
+    const fid = hasFid
+      ? searchParams.get('fid')?.slice(0, 100)
       : 'My default title';
     return new ImageResponse(
       (
@@ -56,7 +56,7 @@ export async function GET(request: Request) {
               whiteSpace: 'pre-wrap',
             }}
           >
-            {title}
+            {fid}
           </div>
         </div>
       ),
