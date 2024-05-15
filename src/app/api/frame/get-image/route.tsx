@@ -23,8 +23,11 @@ export async function GET(request: Request) {
             height: '100%',
             padding: '50px 200px',
             textAlign: 'center',
+            display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            flexDirection: 'column',
+            flexWrap: 'nowrap',
           }}
         >
           <div
