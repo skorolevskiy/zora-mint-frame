@@ -34,14 +34,13 @@ export async function POST(req: NextRequest): Promise<Response> {
 		const User = await getUser(fid_new);
 
 		if (!User) {
-			console.warn('not added: ' + JSON.stringify(User));
+			//console.warn('not added: ' + JSON.stringify(User));
 			await addUser(fid_new, username_new, display_name_new);
 			points = 0;
 			spins = 3;
 		} else {
-			console.warn('added: ' + JSON.stringify(User));
+			//console.warn('added: ' + JSON.stringify(User));
 
-			//let data = JSON.parse(User);
 			points = User.points;
 			spins = User.dailySpins;
 			dateString = User.lastSpin;
@@ -82,9 +81,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 enum ResponseType {
 	SUCCESS,
 	RECAST,
-	ALREADY_MINTED,
 	NO_ADDRESS,
-	OUT_OF_GAS,
 	ERROR,
 }
 
@@ -92,9 +89,7 @@ function getResponse(type: ResponseType) {
 	const IMAGE = {
 		[ResponseType.SUCCESS]: 'status/success.webp',
 		[ResponseType.RECAST]: 'status/recast.png',
-		[ResponseType.ALREADY_MINTED]: 'status/already-minted.png',
 		[ResponseType.NO_ADDRESS]: 'status/no-address.png',
-		[ResponseType.OUT_OF_GAS]: 'status/out-of-gas.png',
 		[ResponseType.ERROR]: 'status/error.png',
 	}[type];
 	const shouldRetry =
