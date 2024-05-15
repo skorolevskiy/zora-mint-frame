@@ -1,16 +1,25 @@
 import { ImageResponse } from 'next/og';
+import { getUser } from '../types';
 // App router includes @vercel/og.
 // No need to install it.
+
+let fid: string, points: number;
  
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
  
-    // ?title=<title>
     const hasFid = searchParams.has('fid');
-    const fid = hasFid
-      ? searchParams.get('fid')?.slice(0, 100)
-      : 'My default title';
+    const fid = hasFid ? searchParams.get('fid') : null;
+
+    const user = await getUser(fid);
+
+    if (!user) {
+			points = 0;
+		} else {
+			points = user.points;
+		}
+
     return new ImageResponse(
       (
         <div
@@ -54,7 +63,7 @@ export async function GET(request: Request) {
               whiteSpace: 'pre-wrap',
             }}
           >
-            {fid}
+            {fid} = {points} points
           </div>
         </div>
       ),
