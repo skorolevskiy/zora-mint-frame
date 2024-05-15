@@ -46,7 +46,6 @@ export async function GET(request: Request) {
               letterSpacing: '-0.025em',
               color: 'white',
               marginTop: 30,
-              padding: '0 120px',
               lineHeight: 1.4,
               whiteSpace: 'pre-wrap',
             }}
@@ -60,9 +59,9 @@ export async function GET(request: Request) {
               letterSpacing: '-0.025em',
               color: 'white',
               marginTop: 30,
-              padding: '0 120px',
               lineHeight: 1.4,
               whiteSpace: 'pre-wrap',
+              display: 'flex',
             }}
           >
             {fid} = {points} points
