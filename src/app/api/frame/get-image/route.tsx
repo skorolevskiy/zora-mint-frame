@@ -15,13 +15,10 @@ export async function GET(request: Request) {
       (
         <div
           style={{
-            fontSize: 60,
-            fontWeight: 'bold',
-            color: 'white',
             background: '#0052FF',
             width: '100%',
             height: '100%',
-            padding: '50px 200px',
+            padding: '50px',
             textAlign: 'center',
             display: 'flex',
             justifyContent: 'center',
@@ -34,6 +31,7 @@ export async function GET(request: Request) {
             style={{
               fontSize: 60,
               fontStyle: 'normal',
+              fontWeight: 'bold',
               letterSpacing: '-0.025em',
               color: 'white',
               marginTop: 30,
