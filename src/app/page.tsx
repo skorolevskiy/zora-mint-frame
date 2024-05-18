@@ -12,10 +12,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
     return (
-        <div style={{ minHeight: '92dvh', display: 'flex' }}>
+        <div style={{ minHeight: '92dvh', display: 'flex', background: '#0052FF', }}>
             <h1
                 style={{
-                    background: '#0052FF',
                     margin: 'auto',
                     fontFamily: 'Inter, "Material Icons, sans-serif',
                     fontSize: '80px',
