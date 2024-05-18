@@ -58,14 +58,14 @@ export async function GET(request: Request) {
 						<div tw="flex bg-white shadow-md rounded my-6">
 							<table tw="w-full flex flex-col">
 								<thead tw="flex">
-									<tr tw="flex bg-gray-200 text-gray-600 uppercase text-lg leading-normal">
+									<tr tw="flex w-full bg-gray-200 text-gray-600 uppercase text-lg leading-normal">
 										<th tw="py-3 px-6 text-left">#</th>
 										<th tw="py-3 px-6 text-left">Nickname</th>
 										<th tw="py-3 px-6 text-center">Points</th>
 									</tr>
 								</thead>
-								<tbody tw="flex flex-col text-gray-600 text-lg font-light">
-									<tr tw="flex border-b border-gray-200">
+								<tbody tw="flex w-full flex-col text-gray-600 text-lg font-light">
+									<tr tw="flex w-full border-b border-gray-200">
 										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">1</span>
@@ -80,7 +80,7 @@ export async function GET(request: Request) {
 											<span>{points}</span>
 										</td>
 									</tr>
-									<tr tw="flex border-b border-gray-200 bg-gray-50">
+									<tr tw="flex w-full border-b border-gray-200 bg-gray-50">
 										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">2</span>
@@ -95,7 +95,7 @@ export async function GET(request: Request) {
 											<span>1400</span>
 										</td>
 									</tr>
-									<tr tw="flex border-b border-gray-200">
+									<tr tw="flex w-full border-b border-gray-200">
 										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">3</span>
