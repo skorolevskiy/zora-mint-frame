@@ -118,6 +118,20 @@ export async function GET(request: Request) {
 							</table>
 						</div>
 					</div>
+
+					<div
+						style={{
+							fontFamily: 'Inter, "Material Icons"',
+							fontSize: 10,
+							fontStyle: 'normal',
+							letterSpacing: '-0.025em',
+							color: 'white',
+							lineHeight: 1.4,
+							whiteSpace: 'pre-wrap',
+						}}
+					>
+						PILL corp, frame made by @eat
+					</div>
 				</div>
 			),
 			{
