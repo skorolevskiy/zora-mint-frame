@@ -66,47 +66,47 @@ export async function GET(request: Request) {
 								</thead>
 								<tbody tw="flex w-full flex-col text-gray-600 text-lg font-light">
 									<tr tw="flex w-full border-b border-gray-200">
-										<td tw="flex py-3 px-6 text-left">
+										<td tw="flex w-full py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">1</span>
 											</div>
 										</td>
-										<td tw="flex py-3 px-6 text-left">
+										<td tw="flex w-full py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span>{username}</span>
 											</div>
 										</td>
-										<td tw="flex py-3 px-6 text-center">
+										<td tw="flex w-full py-3 px-6 text-center">
 											<span>{points}</span>
 										</td>
 									</tr>
 									<tr tw="flex w-full border-b border-gray-200 bg-gray-50">
-										<td tw="flex py-3 px-6 text-left">
+										<td tw="flex w-full py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">2</span>
 											</div>
 										</td>
-										<td tw="flex py-3 px-6 text-left">
+										<td tw="flex w-full py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span>Test</span>
 											</div>
 										</td>
-										<td tw="flex py-3 px-6 text-center">
+										<td tw="flex w-full py-3 px-6 text-center">
 											<span>1400</span>
 										</td>
 									</tr>
 									<tr tw="flex w-full border-b border-gray-200">
-										<td tw="flex py-3 px-6 text-left">
+										<td tw="flex w-full py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">3</span>
 											</div>
 										</td>
-										<td tw="flex py-3 px-6 text-left">
+										<td tw="flex w-full py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span>Test2</span>
 											</div>
 										</td>
-										<td tw="flex py-3 px-6 text-center">
+										<td tw="flex w-full py-3 px-6 text-center">
 											<span>1300</span>
 										</td>
 									</tr>
