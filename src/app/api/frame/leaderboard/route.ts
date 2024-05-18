@@ -71,13 +71,13 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
-	<meta name="fc:frame:button:1" content="🔄${points} points" />
-    <meta name="fc:frame:button:1:action" content="post" />
-    <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/leaderboard/" />
+	// <meta name="fc:frame:button:1" content="🔄${points} points" />
+    // <meta name="fc:frame:button:1:action" content="post" />
+    // <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/leaderboard/" />
 
-    <meta name="fc:frame:button:2" content="↩️Back" />
-    <meta name="fc:frame:button:2:action" content="post" />
-    <meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/" />
+    <meta name="fc:frame:button:1" content="↩️Back" />
+    <meta name="fc:frame:button:1:action" content="post" />
+    <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/" />
 
   </head></html>`);
 }
