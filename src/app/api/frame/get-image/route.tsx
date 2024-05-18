@@ -57,7 +57,7 @@ export async function GET(request: Request) {
           <div
             style={{
               fontFamily: 'Inter, "Material Icons"',
-              fontSize: 60,
+              fontSize: 40,
               fontStyle: 'normal',
               letterSpacing: '-0.025em',
               color: 'white',
