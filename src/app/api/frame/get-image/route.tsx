@@ -54,59 +54,59 @@ export async function GET(request: Request) {
 					>
 						Leaderboard
 					</div>
-					<div tw="w-full">
-						<div tw="bg-white shadow-md rounded my-6">
-							<table tw="w-full">
-								<thead>
-									<tr tw="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+					<div tw="flex w-full">
+						<div tw="flex bg-white shadow-md rounded my-6">
+							<table tw="w-full flex">
+								<thead tw="flex">
+									<tr tw="flex bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
 										<th tw="py-3 px-6 text-left">#</th>
 										<th tw="py-3 px-6 text-left">Nickname</th>
 										<th tw="py-3 px-6 text-center">Points</th>
 									</tr>
 								</thead>
-								<tbody tw="text-gray-600 text-sm font-light">
-									<tr tw="border-b border-gray-200">
-										<td tw="py-3 px-6 text-left">
+								<tbody tw="flex text-gray-600 text-sm font-light">
+									<tr tw="flex border-b border-gray-200">
+										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">1</span>
 											</div>
 										</td>
-										<td tw="py-3 px-6 text-left">
+										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span>{username}</span>
 											</div>
 										</td>
-										<td tw="py-3 px-6 text-center">
+										<td tw="flex py-3 px-6 text-center">
 											<span>{points}</span>
 										</td>
 									</tr>
-									<tr tw="border-b border-gray-200 bg-gray-50">
-										<td tw="py-3 px-6 text-left">
+									<tr tw="flex border-b border-gray-200 bg-gray-50">
+										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">2</span>
 											</div>
 										</td>
-										<td tw="py-3 px-6 text-left">
+										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span>Test</span>
 											</div>
 										</td>
-										<td tw="py-3 px-6 text-center">
+										<td tw="flex py-3 px-6 text-center">
 											<span>1400</span>
 										</td>
 									</tr>
-									<tr tw="border-b border-gray-200">
-										<td tw="py-3 px-6 text-left">
+									<tr tw="flex border-b border-gray-200">
+										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">3</span>
 											</div>
 										</td>
-										<td tw="py-3 px-6 text-left">
+										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span>Test2</span>
 											</div>
 										</td>
-										<td tw="py-3 px-6 text-center">
+										<td tw="flex py-3 px-6 text-center">
 											<span>1300</span>
 										</td>
 									</tr>
