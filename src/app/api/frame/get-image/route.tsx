@@ -3,7 +3,7 @@ import { getUser } from '../types';
 // App router includes @vercel/og.
 // No need to install it.
 
-let fid: string, points: number;
+let fid: string, name: string, points: number;
  
 export async function GET(request: Request) {
   try {
@@ -17,6 +17,7 @@ export async function GET(request: Request) {
     if (!user) {
 			points = 0;
 		} else {
+      name = user.name;
 			points = user.points;
 		}
 
@@ -66,7 +67,7 @@ export async function GET(request: Request) {
               display: 'flex',
             }}
           >
-            {fid} = {points} points
+            {name}({fid}) = {points} points
           </div>
         </div>
       ),
