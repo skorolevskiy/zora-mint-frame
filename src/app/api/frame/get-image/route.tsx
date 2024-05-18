@@ -1,9 +1,15 @@
 import { ImageResponse } from 'next/og';
-import { getUser } from '../types';
+import { getTopPlayers, getUser } from '../types';
 // App router includes @vercel/og.
 // No need to install it.
 
 let fid: string, username: string, points: number;
+
+interface Player {
+	fid: string;
+	username: string,
+	points: number;
+}
 
 export async function GET(request: Request) {
 	try {
@@ -17,9 +23,11 @@ export async function GET(request: Request) {
 		if (!user) {
 			points = 0;
 		} else {
-			username = user.username;
+			username = (user.username).replace(/"/g, '');
 			points = user.points;
 		}
+
+		const topPlayers: Player[] = await getTopPlayers();
 
 		return new ImageResponse(
 			(
@@ -33,7 +41,7 @@ export async function GET(request: Request) {
 						padding: '50px',
 						textAlign: 'center',
 						display: 'flex',
-						justifyContent: 'center',
+						justifyContent: 'flex-start',
 						alignItems: 'center',
 						flexDirection: 'column',
 						flexWrap: 'nowrap',
@@ -42,72 +50,65 @@ export async function GET(request: Request) {
 					<div
 						style={{
 							fontFamily: 'Inter, "Material Icons"',
-							fontSize: 60,
+							fontSize: 40,
 							fontStyle: 'normal',
-							fontWeight: '700',
+							fontWeight: 700,
 							letterSpacing: '-0.025em',
 							color: 'white',
-							marginTop: 30,
 							lineHeight: 1.4,
 							whiteSpace: 'pre-wrap',
 						}}
 					>
 						Leaderboard
 					</div>
-					<div tw="flex w-full">
-						<div tw="flex bg-white shadow-md rounded my-6">
-							<table tw="w-full flex flex-col">
+
+					<div tw="flex w-full text-3xl">
+						<div tw="flex bg-white shadow-lg rounded-lg my-6">
+							<table tw="w-full flex flex-col rounded-lg">
 								<thead tw="flex">
-									<tr tw="flex w-full bg-gray-200 text-gray-600 uppercase text-lg leading-normal">
+									<tr tw="flex w-full bg-gray-200 text-gray-600 uppercase text-xl leading-normal rounded-lg">
 										<th tw="py-3 px-6 text-left">#</th>
-										<th tw="py-3 px-6 text-left">Nickname</th>
-										<th tw="py-3 px-6 text-center">Points</th>
+										<th tw="w-1/4 py-3 px-6 text-left">Fid</th>
+										<th tw="w-1/2 py-3 px-6 text-left">Nickname</th>
+										<th tw="flex-1 py-3 px-6 text-black text-center">Points</th>
 									</tr>
 								</thead>
-								<tbody tw="flex w-full flex-col text-gray-600 text-lg font-light">
-									<tr tw="flex w-full border-b border-gray-200">
-										<td tw="flex w-full py-3 px-6 text-left">
+								<tbody tw="flex w-full flex-col text-gray-600 text-xl font-light">
+									{topPlayers.map((player, index) => (
+										<tr  key={index + 1} tw="flex w-full border-b border-gray-200 bg-gray-50">
+											<td tw="py-3 px-6 text-left">
+												<span tw="font-medium">{index + 1}</span>
+											</td>
+											<td tw="w-1/4 py-3 px-6 text-left">
+												<span tw="font-medium">{player.fid}</span>
+											</td>
+											<td tw="w-1/2 py-3 px-6 text-left">
+												<span>{player.username}</span>
+											</td>
+											<td tw="flex-1 py-3 px-6 text-black">
+												<span>{player.points}</span>
+											</td>
+										</tr>
+									))}
+
+									<tr tw="flex w-full border-2 border-red-600 rounded-lg">
+										<td tw="py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">1</span>
 											</div>
 										</td>
-										<td tw="flex w-full py-3 px-6 text-left">
+										<td tw="w-1/4 py-3 px-6 text-left">
 											<div tw="flex items-center">
-												<span>{username}</span>
+												<span tw="font-medium">{fid}</span>
 											</div>
 										</td>
-										<td tw="flex w-full py-3 px-6 text-center">
+										<td tw="w-1/2 py-3 px-6 text-left">
+											<div tw="flex items-center">
+												<span>@{username}</span>
+											</div>
+										</td>
+										<td tw="flex-1 py-3 px-6 text-black">
 											<span>{points}</span>
-										</td>
-									</tr>
-									<tr tw="flex w-full border-b border-gray-200 bg-gray-50">
-										<td tw="flex w-full py-3 px-6 text-left">
-											<div tw="flex items-center">
-												<span tw="font-medium">2</span>
-											</div>
-										</td>
-										<td tw="flex w-full py-3 px-6 text-left">
-											<div tw="flex items-center">
-												<span>Test</span>
-											</div>
-										</td>
-										<td tw="flex w-full py-3 px-6 text-center">
-											<span>1400</span>
-										</td>
-									</tr>
-									<tr tw="flex w-full border-b border-gray-200">
-										<td tw="flex w-full py-3 px-6 text-left">
-											<div tw="flex items-center">
-												<span tw="font-medium">3</span>
-											</div>
-										</td>
-										<td tw="flex w-full py-3 px-6 text-left">
-											<div tw="flex items-center">
-												<span>Test2</span>
-											</div>
-										</td>
-										<td tw="flex w-full py-3 px-6 text-center">
-											<span>1300</span>
 										</td>
 									</tr>
 								</tbody>
