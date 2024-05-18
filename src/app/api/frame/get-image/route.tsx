@@ -1,9 +1,9 @@
 import { ImageResponse } from 'next/og';
-import { getTopPlayers, getUser } from '../types';
+import { getTopPlayers, getUser, getUserPosition } from '../types';
 // App router includes @vercel/og.
 // No need to install it.
 
-let fid: string, username: string, points: number;
+let fid: string, username: string, points: number, position: number;
 
 interface Player {
 	fid: string;
@@ -19,6 +19,9 @@ export async function GET(request: Request) {
 		const fid = hasFid ? searchParams.get('fid') : null;
 
 		const user = await getUser(fid);
+		// position = await getUserPosition(fid);
+
+		// console.log(position);
 
 		if (!user) {
 			points = 0;
@@ -94,7 +97,7 @@ export async function GET(request: Request) {
 									<tr tw="flex w-full border-2 border-red-600 rounded-lg">
 										<td tw="py-3 px-6 text-left">
 											<div tw="flex items-center">
-												<span tw="font-medium">1</span>
+												<span tw="font-medium">{position}</span>
 											</div>
 										</td>
 										<td tw="w-1/4 py-3 px-6 text-left">

@@ -71,16 +71,17 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
-	// <meta name="fc:frame:button:1" content="🔄${points} points" />
-    // <meta name="fc:frame:button:1:action" content="post" />
-    // <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/leaderboard/" />
-
     <meta name="fc:frame:button:1" content="↩️Back" />
     <meta name="fc:frame:button:1:action" content="post" />
     <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/" />
 
   </head></html>`);
 }
+
+
+	// <meta name="fc:frame:button:1" content="🔄${points} points" />
+    // <meta name="fc:frame:button:1:action" content="post" />
+    // <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/leaderboard/" />
 
 async function validateFrameRequest(data: string | undefined) {
 	if (!NEYNAR_API_KEY) throw new Error('NEYNAR_API_KEY is not set');

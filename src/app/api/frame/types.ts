@@ -1,15 +1,16 @@
-import { Generated, ColumnType } from 'kysely'
+import * as kysely from 'kysely'
 import { createKysely } from '@vercel/postgres-kysely'
+import { sql } from '@vercel/postgres'
 
 export interface PlayersTable {
-	id: Generated<number>
+	id: kysely.Generated<number>
 	fid: string | null
 	username: string | null
 	name: string | null
 	points: number
 	dailySpins: number
-	lastSpin: ColumnType<Date, string | undefined, never>
-	createdAt: ColumnType<Date, string | undefined, never>
+	lastSpin: kysely.ColumnType<Date, string | undefined, never>
+	createdAt: kysely.ColumnType<Date, string | undefined, never>
 }
 
 // Keys of this interface are table names.
@@ -27,7 +28,8 @@ export async function getUser(fid: string | null): Promise<any> {
 		data = await db
 			.selectFrom('spiners')
 			.where('fid', '=', fid)
-			.selectAll().executeTakeFirst();
+			.selectAll()
+			.executeTakeFirst();
 		return data; // Data fetched successfully
 	} catch (e: any) {
 		if (e.message.includes('relation "spiners" does not exist')) {
@@ -88,11 +90,26 @@ export async function getTopPlayers(): Promise<any> {
 			.selectFrom('spiners')
 			.select(['fid', 'username', 'points'])
 			.orderBy('points desc')
-			.limit(5)
+			.limit(9)
 			.execute();
 		return data;
 	} catch (e: any) {
 		console.error('Ошибка получения данных:', e.message);
 		return false;
 	}
+}
+
+export async function getUserPosition(fid: string | null) {
+	let data: any;
+	data = await db
+			.selectFrom('spiners')
+			.orderBy('points desc')
+			.select(({ fn }) => [
+				// `fn` содержит все основные функции
+				fn.agg<string>('points').as('position'),
+			  ])
+			  .groupBy('points')
+			.where('fid', '=', fid)
+			.executeTakeFirst();
+	return data;
 }
