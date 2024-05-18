@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
     return (
-        <div style={{ minHeight: '92dvh', display: 'flex', background: '#0052FF', }}>
+        <div style={{ minHeight: '100dvh', display: 'flex', background: '#0052FF', margin: '0' }}>
             <h1
                 style={{
                     margin: 'auto',
@@ -22,7 +22,7 @@ export default function Home() {
                     color: 'white',
                 }}
             >
-                Go to Farcaster!
+                <a href="https://warpcast.com/~/channel/pill">Go to Farcaster!</a>
             </h1>
         </div>
     );
