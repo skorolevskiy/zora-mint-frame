@@ -15,9 +15,12 @@ export default function Home() {
         <div style={{ minHeight: '92dvh', display: 'flex' }}>
             <h1
                 style={{
+                    background: '#0052FF',
                     margin: 'auto',
-                    fontFamily: 'Comic Sans MS, Comic Sans, cursive',
-                    fontSize: '80px'
+                    fontFamily: 'Inter, "Material Icons, sans-serif',
+                    fontSize: '80px',
+                    textAlign: 'center',
+                    color: 'white',
                 }}
             >
                 Go to Farcaster!
