@@ -54,9 +54,9 @@ export async function GET(request: Request) {
 					>
 						Leaderboard
 					</div>
-					<div tw="w-full lg:w-2/3">
+					<div tw="w-full">
 						<div tw="bg-white shadow-md rounded my-6">
-							<table tw="min-w-max w-full table-auto">
+							<table tw="w-full">
 								<thead>
 									<tr tw="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
 										<th tw="py-3 px-6 text-left">#</th>
@@ -65,8 +65,8 @@ export async function GET(request: Request) {
 									</tr>
 								</thead>
 								<tbody tw="text-gray-600 text-sm font-light">
-									<tr tw="border-b border-gray-200 hover:bg-gray-100">
-										<td tw="py-3 px-6 text-left whitespace-nowrap">
+									<tr tw="border-b border-gray-200">
+										<td tw="py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">1</span>
 											</div>
@@ -80,8 +80,8 @@ export async function GET(request: Request) {
 											<span>{points}</span>
 										</td>
 									</tr>
-									<tr tw="border-b border-gray-200 bg-gray-50 hover:bg-gray-100">
-										<td tw="py-3 px-6 text-left whitespace-nowrap">
+									<tr tw="border-b border-gray-200 bg-gray-50">
+										<td tw="py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">2</span>
 											</div>
@@ -95,8 +95,8 @@ export async function GET(request: Request) {
 											<span>1400</span>
 										</td>
 									</tr>
-									<tr tw="border-b border-gray-200 hover:bg-gray-100">
-										<td tw="py-3 px-6 text-left whitespace-nowrap">
+									<tr tw="border-b border-gray-200">
+										<td tw="py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">3</span>
 											</div>
