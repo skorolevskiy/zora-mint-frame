@@ -101,15 +101,21 @@ export async function getTopPlayers(): Promise<any> {
 
 export async function getUserPosition(fid: string | null) {
 	let data: any;
-	data = await db
+	try {
+		const userPoints = await db
 			.selectFrom('spiners')
-			.orderBy('points desc')
-			.select(({ fn }) => [
-				// `fn` содержит все основные функции
-				fn.agg<string>('points').as('position'),
-			  ])
-			  .groupBy('points')
+			.select('points')
 			.where('fid', '=', fid)
 			.executeTakeFirst();
-	return data;
+
+		data = await db
+			.selectFrom('spiners')
+			.select(db.fn.countAll().as('count'))
+			.where('points', '>', userPoints?.points ?? 0)
+			.execute();
+		return data[0]['count'];
+	} catch (e: any) {
+		console.error('Ошибка получения данных:', e.message);
+		return false;
+	}
 }
