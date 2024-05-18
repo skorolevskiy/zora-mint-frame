@@ -56,7 +56,7 @@ export async function GET(request: Request) {
 					</div>
 					<div tw="flex w-full">
 						<div tw="flex bg-white shadow-md rounded my-6">
-							<table tw="w-full flex">
+							<table tw="w-full flex flex-col">
 								<thead tw="flex">
 									<tr tw="flex bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
 										<th tw="py-3 px-6 text-left">#</th>
@@ -64,7 +64,7 @@ export async function GET(request: Request) {
 										<th tw="py-3 px-6 text-center">Points</th>
 									</tr>
 								</thead>
-								<tbody tw="flex text-gray-600 text-sm font-light">
+								<tbody tw="flex flex-col text-gray-600 text-sm font-light">
 									<tr tw="flex border-b border-gray-200">
 										<td tw="flex py-3 px-6 text-left">
 											<div tw="flex items-center">
