@@ -83,7 +83,7 @@ export async function GET(request: Request) {
 												<span tw="font-medium">{player.fid}</span>
 											</td>
 											<td tw="w-1/2 py-3 px-6 text-left">
-												<span>{player.username}</span>
+												<span>@{(player.username).replace(/"/g, '')}</span>
 											</td>
 											<td tw="flex-1 py-3 px-6 text-black">
 												<span>{player.points}</span>
