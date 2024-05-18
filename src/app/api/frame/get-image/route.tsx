@@ -66,14 +66,14 @@ export async function GET(request: Request) {
 						<div tw="flex bg-white shadow-lg rounded-lg my-6">
 							<table tw="w-full flex flex-col rounded-lg">
 								<thead tw="flex">
-									<tr tw="flex w-full bg-gray-200 text-gray-600 uppercase text-xl leading-normal rounded-lg">
+									<tr tw="flex w-full bg-gray-200 text-gray-600 uppercase text-2xl leading-normal rounded-lg">
 										<th tw="py-3 px-6 text-left">#</th>
 										<th tw="w-1/4 py-3 px-6 text-left">Fid</th>
 										<th tw="w-1/2 py-3 px-6 text-left">Nickname</th>
 										<th tw="flex-1 py-3 px-6 text-black text-center">Points</th>
 									</tr>
 								</thead>
-								<tbody tw="flex w-full flex-col text-gray-600 text-xl font-light">
+								<tbody tw="flex w-full flex-col text-gray-600 text-2xl font-light">
 									{topPlayers.map((player, index) => (
 										<tr  key={index + 1} tw="flex w-full border-b border-gray-200 bg-gray-50">
 											<td tw="py-3 px-6 text-left">
