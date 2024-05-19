@@ -102,7 +102,7 @@ export async function getTopPlayers(): Promise<any> {
 			.selectFrom('spiners')
 			.select(['fid', 'username', 'points'])
 			.orderBy('points desc')
-			.limit(9)
+			.limit(10)
 			.execute();
 		return data;
 	} catch (e: any) {

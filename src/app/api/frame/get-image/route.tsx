@@ -36,6 +36,7 @@ export async function GET(request: Request) {
 			(
 				<div
 					style={{
+						fontFamily: 'Geist, GeistSans, Inter, "Material Icons"',
 						fontSize: 40,
 						color: 'black',
 						background: '#0052FF',
@@ -52,7 +53,7 @@ export async function GET(request: Request) {
 				>
 					<div
 						style={{
-							fontFamily: 'Inter, "Material Icons"',
+							fontFamily: 'Geist, GeistSans, Inter, "Material Icons"',
 							fontSize: 40,
 							fontStyle: 'normal',
 							fontWeight: 700,
@@ -121,7 +122,7 @@ export async function GET(request: Request) {
 
 					<div
 						style={{
-							fontFamily: 'Inter, "Material Icons"',
+							fontFamily: 'Geist, GeistSans, Inter, "Material Icons"',
 							fontSize: 20,
 							fontStyle: 'normal',
 							letterSpacing: '-0.025em',
@@ -130,7 +131,7 @@ export async function GET(request: Request) {
 							whiteSpace: 'pre-wrap',
 						}}
 					>
-						PILL corp, frame made by @eat
+						Build by PILL, dev @eat
 					</div>
 				</div>
 			),
