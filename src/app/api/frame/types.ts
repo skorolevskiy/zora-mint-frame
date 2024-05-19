@@ -11,6 +11,7 @@ export interface PlayersTable {
 	dailySpins: number
 	lastSpin: kysely.ColumnType<Date, string | undefined, never>
 	createdAt: kysely.ColumnType<Date, string | undefined, never>
+	refFid: string | null
 }
 
 // Keys of this interface are table names.
@@ -46,7 +47,7 @@ export async function getUser(fid: string | null): Promise<any> {
 	}
 }
 
-export async function addUser(fid: string | null, username: string | null, display_name: string | null) {
+export async function addUser(fid: string | null, username: string | null, display_name: string | null, ref_fid: string | null) {
 
 	const result = await db
 		.insertInto('spiners')
@@ -56,7 +57,8 @@ export async function addUser(fid: string | null, username: string | null, displ
 			name: display_name ? display_name : null,
 			points: 0,
 			dailySpins: 3,
-			lastSpin: new Date().toLocaleString()
+			lastSpin: new Date().toLocaleString(),
+			refFid: ref_fid
 		})
 		.executeTakeFirst()
 }
@@ -78,6 +80,16 @@ export async function updateDate(fid: string | null) {
 		.set((eb) => ({
 			dailySpins: 3,
 			lastSpin: new Date().toLocaleString(),
+		}))
+		.where('fid', '=', fid)
+		.execute()
+}
+
+export async function updateRef(fid: string | null) {
+	await db
+		.updateTable('spiners')
+		.set((eb) => ({
+			dailySpins: eb('dailySpins', '+', 1),
 		}))
 		.where('fid', '=', fid)
 		.execute()

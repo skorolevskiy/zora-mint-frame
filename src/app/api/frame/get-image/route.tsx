@@ -41,7 +41,7 @@ export async function GET(request: Request) {
 						background: '#0052FF',
 						width: '100%',
 						height: '100%',
-						padding: '50px',
+						padding: '30px 50px',
 						textAlign: 'center',
 						display: 'flex',
 						justifyContent: 'flex-start',
@@ -58,7 +58,7 @@ export async function GET(request: Request) {
 							fontWeight: 700,
 							letterSpacing: '-0.025em',
 							color: 'white',
-							lineHeight: 1.4,
+							lineHeight: 1,
 							whiteSpace: 'pre-wrap',
 						}}
 					>

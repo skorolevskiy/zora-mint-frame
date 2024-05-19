@@ -10,6 +10,8 @@ export async function seed() {
       points INTEGER,
       "dailySpins" INTEGER,
       "lastSpin" TIMESTAMP,
+      "refFid" VARCHAR(255) NOT NULL,
+      "refSpin" INTEGER,
       "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
     `
