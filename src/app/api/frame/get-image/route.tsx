@@ -1,3 +1,4 @@
+import { SITE_URL } from '@/config';
 import { ImageResponse } from 'next/og';
 import { getTopPlayers, getUser, getUserPosition } from '../types';
 // App router includes @vercel/og.
@@ -13,7 +14,7 @@ interface Player {
 
 export async function GET(request: Request) {
 	const fontData = await fetch(
-		new URL('../../../../../assets/GeistMono-Regular.ttf', import.meta.url),
+		new URL(SITE_URL + '/assets/GeistMonoRegular.ttf', import.meta.url),
 	  ).then((res) => res.arrayBuffer());
 
 	try {
