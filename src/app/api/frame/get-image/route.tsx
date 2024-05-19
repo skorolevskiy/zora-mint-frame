@@ -12,6 +12,10 @@ interface Player {
 }
 
 export async function GET(request: Request) {
+	const fontData = await fetch(
+		new URL('../../../../../assets/GeistMono-Regular.ttf', import.meta.url),
+	  ).then((res) => res.arrayBuffer());
+
 	try {
 		const { searchParams } = new URL(request.url);
 
@@ -138,6 +142,13 @@ export async function GET(request: Request) {
 			{
 				width: 960,
 				height: 960,
+				fonts: [
+					{
+					  name: 'Geist',
+					  data: fontData,
+					  style: 'normal',
+					},
+				  ],
 			},
 		);
 	} catch (e: any) {
