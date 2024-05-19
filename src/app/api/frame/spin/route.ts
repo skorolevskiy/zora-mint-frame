@@ -7,13 +7,13 @@ import {
 	TransactionExecutionError,
 	http,
 } from 'viem';
-import { updatePoints, updateDate, getUser } from '../types';
+import { updatePointsSpins, updatePoints, updateDate, getUser } from '../types';
 
 // const HAS_KV = !!process.env.KV_URL;
 // const transport = http(process.env.RPC_URL);
 
 export const dynamic = 'force-dynamic';
-let spins: number, date: string;
+let spins: number, date: string, points: number;
 
 export async function POST(req: NextRequest): Promise<Response> {
 	try {
@@ -35,47 +35,78 @@ export async function POST(req: NextRequest): Promise<Response> {
 			spins = 0;
 		} else {
 			spins = User.dailySpins;
+			points = User.points;
 		}
 
-		if (spins > 0) {
-			const randomNumber = weighted_random_number();
+		const randomNumber = weighted_random_number();
 
+		if (spins > 0) {
 			switch (randomNumber) {
 				case 1:
-					await updatePoints(fid, 5);
+					await updatePointsSpins(fid, 5);
 					spins--;
 					return getResponse(ResponseType.IMAGE_5);
 				case 2:
-					await updatePoints(fid, 25);
+					await updatePointsSpins(fid, 25);
 					spins--;
 					return getResponse(ResponseType.IMAGE_25);
 				case 3:
-					await updatePoints(fid, 50);
+					await updatePointsSpins(fid, 50);
 					spins--;
 					return getResponse(ResponseType.IMAGE_50);
 				case 4:
-					await updatePoints(fid, 100);
+					await updatePointsSpins(fid, 100);
 					spins--;
 					return getResponse(ResponseType.IMAGE_100);
 				case 5:
-					await updatePoints(fid, 150);
+					await updatePointsSpins(fid, 150);
 					spins--;
 					return getResponse(ResponseType.IMAGE_150);
 				case 6:
-					await updatePoints(fid, 200);
+					await updatePointsSpins(fid, 200);
 					spins--;
 					return getResponse(ResponseType.IMAGE_200);
 				case 7:
-					await updatePoints(fid, 250);
+					await updatePointsSpins(fid, 250);
 					spins--;
 					return getResponse(ResponseType.IMAGE_250);
 				case 8:
-					await updatePoints(fid, 500);
+					await updatePointsSpins(fid, 500);
 					spins--;
 					return getResponse(ResponseType.IMAGE_500);
 			}
 		} else {
-			return getResponse(ResponseType.ERROR);
+			if (points > 100) {
+				switch (randomNumber) {
+					case 1:
+						await updatePoints(fid, -95);
+						return getResponse(ResponseType.IMAGE_5);
+					case 2:
+						await updatePoints(fid, -75);
+						return getResponse(ResponseType.IMAGE_25);
+					case 3:
+						await updatePoints(fid, -50);
+						return getResponse(ResponseType.IMAGE_50);
+					case 4:
+						await updatePoints(fid, 0);
+						return getResponse(ResponseType.IMAGE_100);
+					case 5:
+						await updatePoints(fid, 50);
+						return getResponse(ResponseType.IMAGE_150);
+					case 6:
+						await updatePoints(fid, 100);
+						return getResponse(ResponseType.IMAGE_200);
+					case 7:
+						await updatePoints(fid, 150);
+						return getResponse(ResponseType.IMAGE_250);
+					case 8:
+						await updatePoints(fid, 400);
+						return getResponse(ResponseType.IMAGE_500);
+				}
+			} else {
+				return getResponse(ResponseType.ERROR);
+			}
+			
 		}
 
 		return getResponse(ResponseType.IMAGE_5);
@@ -124,8 +155,8 @@ function getResponse(type: ResponseType) {
 		[ResponseType.NO_ADDRESS]: 'status/no-address.png',
 		[ResponseType.ERROR]: 'status/error.png',
 	}[type];
-	// const shouldRetry =
-	//   type === ResponseType.ERROR || type === ResponseType.RECAST;
+	const shouldRetry =
+	  type === ResponseType.ERROR;
 	// const successRetry = 
 	//   type === ResponseType.SUCCESS;
 	return new NextResponse(`<!DOCTYPE html><html><head>
@@ -134,13 +165,27 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
-    <meta name="fc:frame:button:1" content="🔄${spins} Free spins" />
-    <meta name="fc:frame:button:1:action" content="post" />
-    <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
+	${shouldRetry
+		? `
+		<meta name="fc:frame:button:1" content="🔁Referral" />
+    	<meta name="fc:frame:button:1:action" content="link" />
+    	<meta name="fc:frame:button:1:target" content="https://warpcast.com/~/compose?text=Spin%20for%20thrills%20%26%20wins%21%20Join%20Team%20Pill%27s%20Wheel%20of%20Fortune%20now%21&embeds[]=https://zora-mint-frame-three.vercel.app/" />
 
-    <meta name="fc:frame:button:2" content="↩️Back" />
-    <meta name="fc:frame:button:2:action" content="post" />
-    <meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/" />
+		<meta name="fc:frame:button:2" content="↩️Back" />
+		<meta name="fc:frame:button:2:action" content="post" />
+		<meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/" />
+		`
+		: 
+		`
+    	<meta name="fc:frame:button:1" content="🔄${spins} Free spins" />
+		<meta name="fc:frame:button:1:action" content="post" />
+		<meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
+
+		<meta name="fc:frame:button:2" content="↩️Back" />
+		<meta name="fc:frame:button:2:action" content="post" />
+		<meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/" />
+		`
+	}
 
   </head></html>`);
 }
