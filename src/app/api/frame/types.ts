@@ -61,12 +61,12 @@ export async function addUser(fid: string | null, username: string | null, displ
 		.executeTakeFirst()
 }
 
-export async function updatePoints(fid: string | null, points: number, dailySpins: number) {
+export async function updatePoints(fid: string | null, points: number) {
 	await db
 		.updateTable('spiners')
 		.set((eb) => ({
 			points: eb('points', '+', points),
-			dailySpins: eb('dailySpins', '-', dailySpins)
+			dailySpins: eb('dailySpins', '-', 1)
 		}))
 		.where('fid', '=', fid)
 		.execute()

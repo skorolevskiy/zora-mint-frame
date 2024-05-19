@@ -7,7 +7,7 @@ export default function RootLayout({
 		<html lang="en">
 			<head>
 				<style>{`
-					h1 {
+					a {
 						color: #fff;
 					}
 					`}</style>

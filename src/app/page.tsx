@@ -16,7 +16,7 @@ export default function Home() {
             <h1
                 style={{
                     margin: 'auto',
-                    fontFamily: 'Inter, "Material Icons, sans-serif',
+                    fontFamily: 'Inter, "Material Icons, serif',
                     fontSize: '80px',
                     textAlign: 'center',
                     color: 'white',

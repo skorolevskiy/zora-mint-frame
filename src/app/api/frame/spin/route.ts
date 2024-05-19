@@ -42,43 +42,43 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 			switch (randomNumber) {
 				case 1:
-					await updatePoints(fid, 1111, 1);
-					spins--;
-					return getResponse(ResponseType.IMAGE_1);
-				case 2:
-					await updatePoints(fid, 5555, 1);
-					spins--;
-					return getResponse(ResponseType.IMAGE_2);
-				case 3:
-					await updatePoints(fid, 2222, 1);
-					spins--;
-					return getResponse(ResponseType.IMAGE_3);
-				case 4:
-					await updatePoints(fid, 9999, 1);
-					spins--;
-					return getResponse(ResponseType.IMAGE_4);
-				case 5:
-					await updatePoints(fid, 0, 1);
+					await updatePoints(fid, 5);
 					spins--;
 					return getResponse(ResponseType.IMAGE_5);
+				case 2:
+					await updatePoints(fid, 25);
+					spins--;
+					return getResponse(ResponseType.IMAGE_25);
+				case 3:
+					await updatePoints(fid, 50);
+					spins--;
+					return getResponse(ResponseType.IMAGE_50);
+				case 4:
+					await updatePoints(fid, 100);
+					spins--;
+					return getResponse(ResponseType.IMAGE_100);
+				case 5:
+					await updatePoints(fid, 150);
+					spins--;
+					return getResponse(ResponseType.IMAGE_150);
 				case 6:
-					await updatePoints(fid, 8888, 1);
+					await updatePoints(fid, 200);
 					spins--;
-					return getResponse(ResponseType.IMAGE_6);
+					return getResponse(ResponseType.IMAGE_200);
 				case 7:
-					await updatePoints(fid, 4444, 1);
+					await updatePoints(fid, 250);
 					spins--;
-					return getResponse(ResponseType.IMAGE_7);
+					return getResponse(ResponseType.IMAGE_250);
 				case 8:
-					await updatePoints(fid, 7777, 1);
+					await updatePoints(fid, 500);
 					spins--;
-					return getResponse(ResponseType.IMAGE_8);
+					return getResponse(ResponseType.IMAGE_500);
 			}
 		} else {
 			return getResponse(ResponseType.ERROR);
 		}
 
-		return getResponse(ResponseType.IMAGE_8);
+		return getResponse(ResponseType.IMAGE_5);
 		// Check if user has minted before
 		// if (HAS_KV) {
 		//   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
@@ -96,14 +96,14 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 enum ResponseType {
 	SUCCESS,
-	IMAGE_1,
-	IMAGE_2,
-	IMAGE_3,
-	IMAGE_4,
 	IMAGE_5,
-	IMAGE_6,
-	IMAGE_7,
-	IMAGE_8,
+	IMAGE_25,
+	IMAGE_50,
+	IMAGE_100,
+	IMAGE_150,
+	IMAGE_200,
+	IMAGE_250,
+	IMAGE_500,
 	ALREADY_MINTED,
 	NO_ADDRESS,
 	ERROR,
@@ -112,14 +112,14 @@ enum ResponseType {
 function getResponse(type: ResponseType) {
 	const IMAGE = {
 		[ResponseType.SUCCESS]: 'status/success.webp',
-		[ResponseType.IMAGE_1]: 'status/image-1.webp',
-		[ResponseType.IMAGE_2]: 'status/image-2.webp',
-		[ResponseType.IMAGE_3]: 'status/image-3.webp',
-		[ResponseType.IMAGE_4]: 'status/image-4.webp',
-		[ResponseType.IMAGE_5]: 'status/image-5.webp',
-		[ResponseType.IMAGE_6]: 'status/image-6.webp',
-		[ResponseType.IMAGE_7]: 'status/image-7.webp',
-		[ResponseType.IMAGE_8]: 'status/image-8.webp',
+		[ResponseType.IMAGE_5]: 'status/5.gif',
+		[ResponseType.IMAGE_25]: 'status/25.gif',
+		[ResponseType.IMAGE_50]: 'status/50.gif',
+		[ResponseType.IMAGE_100]: 'status/100.gif',
+		[ResponseType.IMAGE_150]: 'status/150.gif',
+		[ResponseType.IMAGE_200]: 'status/200.gif',
+		[ResponseType.IMAGE_250]: 'status/250.gif',
+		[ResponseType.IMAGE_500]: 'status/500.gif',
 		[ResponseType.ALREADY_MINTED]: 'status/already-minted.png',
 		[ResponseType.NO_ADDRESS]: 'status/no-address.png',
 		[ResponseType.ERROR]: 'status/error.png',
@@ -168,7 +168,7 @@ async function validateFrameRequest(data: string | undefined) {
 }
 
 function weighted_random_number() {
-	const weights = [4, 2, 3, 1, 5, 1, 2, 1];
+	const weights = [5, 5, 4, 4, 3, 2, 1, 1];
 
 	const total_weight = weights.reduce((acc, val) => acc + val, 0);
 	const random_weight = Math.floor(Math.random() * total_weight);
