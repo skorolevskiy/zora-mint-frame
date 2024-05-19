@@ -100,7 +100,7 @@ export async function GET(request: Request) {
 										</tr>
 									))}
 
-									<tr tw="flex w-full border-2 border-red-600 rounded-lg">
+									<tr tw="flex w-full border-3 border-red-600 rounded-lg">
 										<td tw="w-1/12 py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">{position + 1}</span>
@@ -127,6 +127,9 @@ export async function GET(request: Request) {
 
 					<div
 						style={{
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
 							fontFamily: 'Geist, GeistSans, Inter, "Material Icons"',
 							fontSize: 20,
 							fontStyle: 'normal',
@@ -136,7 +139,13 @@ export async function GET(request: Request) {
 							whiteSpace: 'pre-wrap',
 						}}
 					>
-						Build by PILL, dev @eat
+						<p>Build by PILL, dev @eat</p>
+						<img
+							alt="pill"
+							width="64"
+							height="64"
+							src={SITE_URL + '/status/pill.png'}
+							/>
 					</div>
 				</div>
 			),
