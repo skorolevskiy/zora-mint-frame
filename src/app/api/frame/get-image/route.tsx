@@ -130,6 +130,7 @@ export async function GET(request: Request) {
 							display: 'flex',
 							justifyContent: 'space-between',
 							alignItems: 'center',
+							width: '100%',
 							fontFamily: 'Geist, GeistSans, Inter, "Material Icons"',
 							fontSize: 20,
 							fontStyle: 'normal',
