@@ -71,7 +71,7 @@ export async function GET(request: Request) {
 							<table tw="w-full flex flex-col rounded-lg">
 								<thead tw="flex">
 									<tr tw="flex w-full bg-gray-200 text-gray-600 uppercase text-2xl leading-normal rounded-lg">
-										<th tw="w-1/8 py-3 px-6 text-left">#</th>
+										<th tw="w-1/12 py-3 px-6 text-left">#</th>
 										<th tw="w-1/4 py-3 px-6 text-left">Fid</th>
 										<th tw="w-1/2 py-3 px-6 text-left">Nickname</th>
 										<th tw="flex-1 py-3 px-6 text-black text-center">Points</th>
@@ -80,7 +80,7 @@ export async function GET(request: Request) {
 								<tbody tw="flex w-full flex-col text-gray-600 text-2xl font-light">
 									{topPlayers.map((player, index) => (
 										<tr  key={index + 1} tw="flex w-full border-2 border-gray-200 bg-gray-50">
-											<td tw="w-1/8 py-3 px-6 text-left">
+											<td tw="w-1/12 py-3 px-6 text-left">
 												<span tw="font-medium">{index + 1}</span>
 											</td>
 											<td tw="w-1/4 py-3 px-6 text-left">
@@ -96,7 +96,7 @@ export async function GET(request: Request) {
 									))}
 
 									<tr tw="flex w-full border-2 border-red-600 rounded-lg">
-										<td tw="w-1/8 py-3 px-6 text-left">
+										<td tw="w-1/12 py-3 px-6 text-left">
 											<div tw="flex items-center">
 												<span tw="font-medium">{position + 1}</span>
 											</div>
