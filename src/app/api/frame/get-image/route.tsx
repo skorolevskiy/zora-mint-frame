@@ -78,7 +78,7 @@ export async function GET(request: Request) {
 								</thead>
 								<tbody tw="flex w-full flex-col text-gray-600 text-2xl font-light">
 									{topPlayers.map((player, index) => (
-										<tr  key={index + 1} tw="flex w-full border-b border-gray-200 bg-gray-50">
+										<tr  key={index + 1} tw="flex w-full border-2 border-gray-200 bg-gray-50">
 											<td tw="py-3 px-6 text-left">
 												<span tw="font-medium">{index + 1}</span>
 											</td>
