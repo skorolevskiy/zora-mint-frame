@@ -47,7 +47,7 @@ export async function GET(request: Request) {
 						background: '#0052FF',
 						width: '100%',
 						height: '100%',
-						padding: '30px 50px',
+						padding: '50px 50px',
 						textAlign: 'center',
 						display: 'flex',
 						justifyContent: 'flex-start',
