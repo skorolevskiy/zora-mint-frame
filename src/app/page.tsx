@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     metadataBase: SITE_URL ? new URL(SITE_URL) : undefined,
     title: 'Pill spin game [BETA]',
     other: FRAME_METADATA,
+    openGraph: {
+        images: '/opengraph-image.jpg',
+    },
 };
 
 export default function Home() {
