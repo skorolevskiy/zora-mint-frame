@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Pill spin game [BETA]',
     other: FRAME_METADATA,
     openGraph: {
-        images: '/og-image.jpg',
+        images: '/opengraph-image.png',
     },
 };
 
