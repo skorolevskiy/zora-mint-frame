@@ -1,4 +1,4 @@
-import { base } from 'viem/chains';
+//import { base } from 'viem/chains';
 import { getFrameMetadata, FrameImageMetadata } from '@coinbase/onchainkit/frame';
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
