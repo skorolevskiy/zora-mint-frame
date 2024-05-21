@@ -1,6 +1,5 @@
-import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
+import { SITE_URL, NEYNAR_API_KEY } from '@/config';
 import { NextRequest, NextResponse } from 'next/server';
-import { getUser, getTopPlayers } from './../types';
 
 export const dynamic = 'force-dynamic';
 let points: number, fid: string | null, time: number;
@@ -23,22 +22,6 @@ export async function POST(req: NextRequest): Promise<Response> {
 		}
 
 		fid = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
-
-		// const User = await getUser(fid_new);
-
-		// if (!User) {
-		// 	points = 0;
-		// } else {
-		// 	points = User.points;
-		// }
-
-		// const topPlayers = await getTopPlayers();
-
-		// if (!topPlayers) {
-		// 	console.warn('no top users')
-		// } else {
-		// 	console.warn(topPlayers)
-		// }
 
 		time = Math.floor(Date.now() / 1000);
 

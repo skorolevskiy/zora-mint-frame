@@ -1,12 +1,5 @@
-import { CHAIN, CONTRACT_ADDRESS, SITE_URL, TOKEN_ID, NEYNAR_API_KEY } from '@/config';
-import { kv } from '@vercel/kv';
+import { SITE_URL, NEYNAR_API_KEY } from '@/config';
 import { NextRequest, NextResponse } from 'next/server';
-import {
-	Address,
-	Hex,
-	TransactionExecutionError,
-	http,
-} from 'viem';
 import { updatePointsSpins, updatePoints, updateDate, getUser } from '../types';
 
 // const HAS_KV = !!process.env.KV_URL;
