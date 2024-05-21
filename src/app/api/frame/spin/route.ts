@@ -219,7 +219,7 @@ async function validateFrameRequest(data: string | undefined) {
 }
 
 function weighted_random_number() {
-	const weights = [2, 2, 2, 2, 3, 4, 4, 4];
+	const weights = [5, 4, 4, 4, 3, 2, 2, 1];
 
 	const total_weight = weights.reduce((acc, val) => acc + val, 0);
 	const random_weight = Math.floor(Math.random() * total_weight);
