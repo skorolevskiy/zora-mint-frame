@@ -44,13 +44,13 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
-    <meta name="fc:frame:button:1" content="↩️Back" />
-    <meta name="fc:frame:button:1:action" content="post" />
-    <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/" />
+    <meta name="fc:frame:button:1" content="🔁Referral" />
+    <meta name="fc:frame:button:1:action" content="link" />
+    <meta name="fc:frame:button:1:target" content="https://warpcast.com/~/compose?text=Spin%20for%20thrills%20%26%20wins%21%20Join%20Team%20Pill%27s%20Wheel%20of%20Fortune%20now%21&embeds[]=https://zora-mint-frame-three.vercel.app/" />
 
-    <meta name="fc:frame:button:2" content="🔁Referral" />
-    <meta name="fc:frame:button:2:action" content="link" />
-    <meta name="fc:frame:button:2:target" content="https://warpcast.com/~/compose?text=Spin%20for%20thrills%20%26%20wins%21%20Join%20Team%20Pill%27s%20Wheel%20of%20Fortune%20now%21&embeds[]=https://zora-mint-frame-three.vercel.app/" />
+	<meta name="fc:frame:button:2" content="↩️Back" />
+    <meta name="fc:frame:button:2:action" content="post" />
+    <meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/" />
 
   </head></html>`);
 }
