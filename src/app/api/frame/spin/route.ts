@@ -104,12 +104,12 @@ export async function POST(req: NextRequest): Promise<Response> {
 						return getResponse(ResponseType.IMAGE_500);
 				}
 			} else {
-				return getResponse(ResponseType.ERROR);
+				return getResponse(ResponseType.SPIN_OUT);
 			}
 			
 		}
 
-		return getResponse(ResponseType.IMAGE_5);
+		return getResponse(ResponseType.SPIN_OUT);
 		// Check if user has minted before
 		// if (HAS_KV) {
 		//   const prevMintHash = await kv.get<Hex>(`mint:${address}`);
@@ -138,6 +138,7 @@ enum ResponseType {
 	ALREADY_MINTED,
 	NO_ADDRESS,
 	ERROR,
+	SPIN_OUT
 }
 
 function getResponse(type: ResponseType) {
@@ -154,6 +155,7 @@ function getResponse(type: ResponseType) {
 		[ResponseType.ALREADY_MINTED]: 'status/already-minted.png',
 		[ResponseType.NO_ADDRESS]: 'status/no-address.png',
 		[ResponseType.ERROR]: 'status/error.png',
+		[ResponseType.SPIN_OUT]: 'status/spin-out.png'
 	}[type];
 	const shouldRetry =
 	  type === ResponseType.ERROR;
