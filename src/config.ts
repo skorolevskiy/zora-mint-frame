@@ -10,7 +10,7 @@ export const TOKEN_ID = 3n; // First collection is 1
 export const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY;
 
 const imageData: FrameImageMetadata = {
-	src: `${SITE_URL}/opengraph-image.jpg`,
+	src: `${SITE_URL}/success.webp`,
 	aspectRatio: '1:1' // или '1.91:1'
 };
 
