@@ -183,9 +183,13 @@ function getResponse(type: ResponseType) {
 		<meta name="fc:frame:button:1:action" content="post" />
 		<meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
 
-		<meta name="fc:frame:button:2" content="↩️Back" />
+		<meta name="fc:frame:button:2" content="${points} points" />
 		<meta name="fc:frame:button:2:action" content="post" />
-		<meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/" />
+		<meta name="fc:frame:button:2:target" content="${SITE_URL}/api/frame/spin/" />
+
+		<meta name="fc:frame:button:3" content="↩️Back" />
+		<meta name="fc:frame:button:3:action" content="post" />
+		<meta name="fc:frame:button:3:target" content="${SITE_URL}/api/frame/" />
 		`
 	}
 
@@ -215,7 +219,7 @@ async function validateFrameRequest(data: string | undefined) {
 }
 
 function weighted_random_number() {
-	const weights = [4, 4, 2, 2, 3, 5, 4, 4];
+	const weights = [2, 2, 2, 2, 3, 4, 4, 4];
 
 	const total_weight = weights.reduce((acc, val) => acc + val, 0);
 	const random_weight = Math.floor(Math.random() * total_weight);
