@@ -37,6 +37,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 		if (!User) {
 			//console.warn('not added: ' + JSON.stringify(User));
 			await addUser(fid_new, username_new, display_name_new, refFid_new);
+			await updateRef(refFid_new);
 			spins = 3;
 		} else {
 			//console.warn('added: ' + JSON.stringify(User));
