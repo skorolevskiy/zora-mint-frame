@@ -6,7 +6,7 @@ import { updatePointsSpins, updatePoints, updateDate, getUser } from '../types';
 // const transport = http(process.env.RPC_URL);
 
 export const dynamic = 'force-dynamic';
-let spins: number, date: string, points: number;
+let spins: number, date: string, points: number, buttonText: string;
 
 export async function POST(req: NextRequest): Promise<Response> {
 	try {
@@ -34,6 +34,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 		const randomNumber = weighted_random_number();
 
 		if (spins > 0) {
+			buttonText = spins + " free spins";
 			switch (randomNumber) {
 				case 1:
 					await updatePointsSpins(fid, 5);
@@ -70,6 +71,8 @@ export async function POST(req: NextRequest): Promise<Response> {
 			}
 		} else {
 			if (points > 100) {
+				buttonText = "Spin -100 points";
+				points = points - 100;
 				switch (randomNumber) {
 					case 1:
 						await updatePoints(fid, -95);
@@ -172,7 +175,7 @@ function getResponse(type: ResponseType) {
 		`
 		: 
 		`
-    	<meta name="fc:frame:button:1" content="🔄${spins} Free spins" />
+    	<meta name="fc:frame:button:1" content="🔄${buttonText}" />
 		<meta name="fc:frame:button:1:action" content="post" />
 		<meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
 
