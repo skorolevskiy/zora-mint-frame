@@ -34,7 +34,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 		const randomNumber = weighted_random_number();
 
 		if (spins > 0) {
-			buttonText = spins + " free spins";
+			buttonText = (spins - 1) + " free spins";
 			switch (randomNumber) {
 				case 1:
 					await updatePointsSpins(fid, 5);
