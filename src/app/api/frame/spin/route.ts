@@ -139,19 +139,19 @@ enum ResponseType {
 
 function getResponse(type: ResponseType) {
 	const IMAGE = {
-		[ResponseType.SUCCESS]: 'status/success.webp',
-		[ResponseType.IMAGE_5]: 'status/5.gif',
-		[ResponseType.IMAGE_25]: 'status/25.gif',
-		[ResponseType.IMAGE_50]: 'status/50.gif',
-		[ResponseType.IMAGE_100]: 'status/100.gif',
-		[ResponseType.IMAGE_150]: 'status/150.gif',
-		[ResponseType.IMAGE_200]: 'status/200.gif',
-		[ResponseType.IMAGE_250]: 'status/250.gif',
-		[ResponseType.IMAGE_500]: 'status/500.gif',
-		[ResponseType.ALREADY_MINTED]: 'status/already-minted.png',
-		[ResponseType.NO_ADDRESS]: 'status/no-address.png',
-		[ResponseType.ERROR]: 'status/error.png',
-		[ResponseType.SPIN_OUT]: 'status/spin-out.png'
+		[ResponseType.SUCCESS]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/success.webp',
+		[ResponseType.IMAGE_5]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/5.gif',
+		[ResponseType.IMAGE_25]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/25.gif',
+		[ResponseType.IMAGE_50]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/50.gif',
+		[ResponseType.IMAGE_100]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/100.gif',
+		[ResponseType.IMAGE_150]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/150.gif',
+		[ResponseType.IMAGE_200]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/200.gif',
+		[ResponseType.IMAGE_250]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/250.gif',
+		[ResponseType.IMAGE_500]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/500.gif',
+		[ResponseType.ALREADY_MINTED]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/already-minted.png',
+		[ResponseType.NO_ADDRESS]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/no-address.png',
+		[ResponseType.ERROR]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/error.png',
+		[ResponseType.SPIN_OUT]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/spin-out.png'
 	}[type];
 	const shouldRetry =
 	  type === ResponseType.SPIN_OUT;
@@ -159,7 +159,7 @@ function getResponse(type: ResponseType) {
 	//   type === ResponseType.SUCCESS;
 	return new NextResponse(`<!DOCTYPE html><html><head>
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${SITE_URL}/${IMAGE}" />
+    <meta property="fc:frame:image" content="${IMAGE}" />
     <meta property="fc:frame:image:aspect_ratio" content="1:1" />
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
