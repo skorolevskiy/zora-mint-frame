@@ -47,7 +47,7 @@ export async function getUser(fid: string | null): Promise<any> {
 	}
 }
 
-export async function addUser(fid: string | null, username: string | null, display_name: string | null, ref_fid: string | null) {
+export async function addUser(fid: string | null, username: string | null, display_name: string | null, ref_fid: string | null, power_badge: boolean | null) {
 
 	const result = await db
 		.insertInto('spiners')
@@ -56,7 +56,7 @@ export async function addUser(fid: string | null, username: string | null, displ
 			username: username ? username : null,
 			name: display_name ? display_name : null,
 			points: 0,
-			dailySpins: 3,
+			dailySpins: power_badge ? 6 : 3,
 			lastSpin: new Date().toLocaleString(),
 			refFid: ref_fid
 		})
@@ -84,11 +84,11 @@ export async function updatePoints(fid: string | null, points: number) {
 		.execute()
 }
 
-export async function updateDate(fid: string | null) {
+export async function updateDate(fid: string | null, power_badge: boolean | null) {
 	await db
 		.updateTable('spiners')
 		.set((eb) => ({
-			dailySpins: 3,
+			dailySpins: power_badge ? 6 : 3,
 			lastSpin: new Date().toLocaleString(),
 		}))
 		.where('fid', '=', fid)

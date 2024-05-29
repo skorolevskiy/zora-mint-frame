@@ -1,17 +1,24 @@
-import { SITE_URL, NEYNAR_API_KEY } from '@/config';
+import { abi } from '@/abi/ERC20';
+import { SITE_URL, NEYNAR_API_KEY, CHAIN, CONTRACT_ADDRESS } from '@/config';
 //import { kv } from '@vercel/kv';
 import { NextRequest, NextResponse } from 'next/server';
 import {
 	Address,
 	Hex,
 	TransactionExecutionError,
+	createPublicClient,
 	http,
 } from 'viem';
 
 let fid: string, points: number, spins: number, dateString: string, refFid: string;
 import { addUser, getUser, updateDate, updateRef } from './types'
 //const HAS_KV = !!process.env.KV_URL;
-//const transport = http(process.env.RPC_URL);
+const transport = http(process.env.RPC_URL);
+
+const publicClient = createPublicClient({
+	chain: CHAIN,
+	transport,
+  });
 
 export const dynamic = 'force-dynamic';
 
@@ -27,16 +34,39 @@ export async function POST(req: NextRequest): Promise<Response> {
 			throw new Error('Invalid frame request');
 		}
 
+		// Check if user has an address connected
+		const address: Address | undefined =
+			status?.action?.interactor?.verifications?.[0];
+
+		if (!address) {
+			return getResponse(ResponseType.NO_ADDRESS);
+		}
+
+		// Check if user has a balance
+		const balance: any = await publicClient.readContract({
+			abi: abi,
+			address: CONTRACT_ADDRESS,
+			functionName: 'balanceOf',
+			args: [address],
+		  });
+
+		  if (balance < 24000000000000000000000n) {
+			return getResponse(ResponseType.NEED_TOKEN);
+		  } else {
+			console.warn(balance);
+		  }
+
 		const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
 		const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
 		const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
 		const refFid_new = status?.action?.cast?.author?.fid ? JSON.stringify(status?.action?.cast?.author?.fid) : null;
+		const power_badge = status?.action?.interactor?.power_badge ? status.action.interactor.power_badge : null;
 
 		const User = await getUser(fid_new);
 
 		if (!User) {
 			//console.warn('not added: ' + JSON.stringify(User));
-			await addUser(fid_new, username_new, display_name_new, refFid_new);
+			await addUser(fid_new, username_new, display_name_new, refFid_new, power_badge);
 			await updateRef(refFid_new);
 			spins = 3;
 		} else {
@@ -52,7 +82,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 		const lastSpin: string = new Date(dateString).toLocaleString().split(',')[0];
 
 		if (lastSpin !== today) {
-			await updateDate(fid_new);
+			await updateDate(fid_new, power_badge);
 			await updateRef(refFid);
 			spins = 3;
 		}
@@ -64,14 +94,6 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 		if (!hasLikedAndRecasted) {
 			return getResponse(ResponseType.RECAST);
-		}
-
-		// Check if user has an address connected
-		const address: Address | undefined =
-			status?.action?.interactor?.verifications?.[0];
-
-		if (!address) {
-			return getResponse(ResponseType.NO_ADDRESS);
 		}
 
 		return getResponse(ResponseType.SUCCESS);
@@ -86,6 +108,7 @@ enum ResponseType {
 	RECAST,
 	NO_ADDRESS,
 	ERROR,
+	NEED_TOKEN
 }
 
 function getResponse(type: ResponseType) {
@@ -94,6 +117,7 @@ function getResponse(type: ResponseType) {
 		[ResponseType.RECAST]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/recast.png',
 		[ResponseType.NO_ADDRESS]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/no-address.png',
 		[ResponseType.ERROR]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/error.png',
+		[ResponseType.NEED_TOKEN]: 'https://gateway.lighthouse.storage/ipfs/QmWzjYyDRau3u9QZ3JzzARKeQ3cvZJv3UetmrMiuCNw2CG',
 	}[type];
 	const shouldRetry =
 		type === ResponseType.ERROR || type === ResponseType.RECAST;
@@ -106,7 +130,12 @@ function getResponse(type: ResponseType) {
     <meta property="fc:frame:post_url" content="${SITE_URL}/api/frame" />
 
     ${shouldRetry
-			? `<meta property="fc:frame:button:1" content="Try again" />`
+			? 
+				`<meta property="fc:frame:button:1" content="Try again" />
+				<meta name="fc:frame:button:2" content="Buy PILL" />
+        		<meta name="fc:frame:button:2:action" content="link" />
+        		<meta name="fc:frame:button:2:target" content="https://app.uniswap.org/swap?chain=base&inputCurrency=ETH&outputCurrency=0x388e543a5a491e7b42e3fbcd127dd6812ea02d0d" />
+				`
 			: `<meta name="fc:frame:button:1" content="🔄${spins} Free spins" />
         <meta name="fc:frame:button:1:action" content="post" />
         <meta name="fc:frame:button:1:target" content="${SITE_URL}/api/frame/spin/" />
