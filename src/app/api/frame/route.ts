@@ -120,7 +120,7 @@ function getResponse(type: ResponseType) {
 		[ResponseType.NEED_TOKEN]: 'https://gateway.lighthouse.storage/ipfs/QmWzjYyDRau3u9QZ3JzzARKeQ3cvZJv3UetmrMiuCNw2CG',
 	}[type];
 	const shouldRetry =
-		type === ResponseType.ERROR || type === ResponseType.RECAST;
+		type === ResponseType.ERROR || type === ResponseType.RECAST || type === ResponseType.NEED_TOKEN;
 	// const successRetry = 
 	//   type === ResponseType.SUCCESS;
 	return new NextResponse(`<!DOCTYPE html><html><head>
