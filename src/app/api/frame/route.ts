@@ -35,26 +35,41 @@ export async function POST(req: NextRequest): Promise<Response> {
 		}
 
 		// Check if user has an address connected
-		const address: Address | undefined =
+		const address1: Address | undefined =
 			status?.action?.interactor?.verifications?.[0];
+		const address2: Address | undefined =
+			status?.action?.interactor?.verifications?.[1];
 
-		if (!address) {
+		let balance1: any, balance2: any;
+
+		if (!address1) {
 			return getResponse(ResponseType.NO_ADDRESS);
+		} else {
+			// Check if user has a balance
+			balance1 = await publicClient.readContract({
+				abi: abi,
+				address: CONTRACT_ADDRESS,
+				functionName: 'balanceOf',
+				args: [address1],
+			  });
 		}
+		if (!address2) {}
+		else {
+			balance2 = await publicClient.readContract({
+				abi: abi,
+				address: CONTRACT_ADDRESS,
+				functionName: 'balanceOf',
+				args: [address2],
+			  });
+		}		
 
-		// Check if user has a balance
-		const balance: any = await publicClient.readContract({
-			abi: abi,
-			address: CONTRACT_ADDRESS,
-			functionName: 'balanceOf',
-			args: [address],
-		  });
-
-		  if (balance < 24000000000000000000000n) {
-			console.warn('need more token ' + balance + ' - ' + address);
+		  if (balance1 < 24000000000000000000000n || balance2 < 24000000000000000000000n) {
+			console.warn('1need more token ' + balance1 + ' - ' + address1);
+			console.warn('2need more token ' + balance2 + ' - ' + address2);
 			return getResponse(ResponseType.NEED_TOKEN);
 		  } else {
-			console.warn(balance);
+			console.warn(balance1);
+			console.warn(balance2);
 		  }
 
 		const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
