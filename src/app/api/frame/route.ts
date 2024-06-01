@@ -71,7 +71,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 			const balanceInTokens2: number = parseInt(formatUnits(balance2, 18));
 			const threshold: number = 24000;
 	
-			  if (balanceInTokens1 > threshold || balanceInTokens2 > threshold) {
+			  if (balanceInTokens1 >= threshold || balanceInTokens2 >= threshold) {
 				console.warn(balanceInTokens1);
 				console.warn(balanceInTokens2);
 			  } else {
