@@ -12,6 +12,7 @@ export interface PlayersTable {
 	lastSpin: kysely.ColumnType<Date, string | undefined, never>
 	createdAt: kysely.ColumnType<Date, string | undefined, never>
 	refFid: string | null
+	wallet: string | null
 }
 
 // Keys of this interface are table names.
@@ -105,6 +106,16 @@ export async function updateRef(fid: string | null) {
 		.execute()
 }
 
+export async function updateWallet(fid: string | null, wallet: string | null) {
+	await db
+		.updateTable('spiners')
+		.set((eb) => ({
+			wallet: wallet,
+		}))
+		.where('fid', '=', fid)
+		.execute()
+}
+
 export async function getTopPlayers(): Promise<any> {
 	let data: any;
 	try {
@@ -140,4 +151,14 @@ export async function getUserPosition(fid: string | null) {
 		console.error('Ошибка получения данных:', e.message);
 		return false;
 	}
+}
+
+export async function getAllUsers() {
+	let data: any;
+	data = await db
+			.selectFrom('spiners')
+			.selectAll()
+			.orderBy('points desc')
+			.execute();
+	return data;
 }

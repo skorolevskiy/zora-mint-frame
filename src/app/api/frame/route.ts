@@ -12,7 +12,8 @@ import {
 } from 'viem';
 
 let fid: string, points: number, spins: number, dateString: string, refFid: string;
-import { addUser, getUser, updateDate, updateRef } from './types'
+import { addUser, getUser, updateDate, updateRef, updateWallet } from './types'
+import { escape } from 'querystring';
 //const HAS_KV = !!process.env.KV_URL;
 const transport = http(process.env.RPC_URL);
 
@@ -34,6 +35,12 @@ export async function POST(req: NextRequest): Promise<Response> {
 			console.error(status);
 			throw new Error('Invalid frame request');
 		}
+
+		const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
+		const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
+		const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
+		const refFid_new = status?.action?.cast?.author?.fid ? JSON.stringify(status?.action?.cast?.author?.fid) : null;
+		const power_badge = status?.action?.interactor?.power_badge ? status.action.interactor.power_badge : null;
 
 		// Check if user has an address connected
 		const address1: Address | undefined =
@@ -74,6 +81,11 @@ export async function POST(req: NextRequest): Promise<Response> {
 			  if (balanceInTokens1 >= threshold || balanceInTokens2 >= threshold) {
 				console.warn(balanceInTokens1);
 				console.warn(balanceInTokens2);
+				if (balanceInTokens1 >= threshold) {
+					await updateWallet(fid_new, JSON.stringify(address1));
+				} else if (balanceInTokens2 >= threshold) {
+					await updateWallet(fid_new, JSON.stringify(address2));
+				}
 			  } else {
 				console.warn('1need more token ' + balanceInTokens1 + ' - ' + address1);
 				console.warn('2need more token ' + balanceInTokens2 + ' - ' + address2);
@@ -81,11 +93,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 				
 			  }
 
-		const fid_new = status?.action?.interactor?.fid ? JSON.stringify(status.action.interactor.fid) : null;
-		const username_new = status?.action?.interactor?.username ? JSON.stringify(status.action.interactor.username) : null;
-		const display_name_new = status?.action?.interactor?.display_name ? JSON.stringify(status.action.interactor.display_name) : null;
-		const refFid_new = status?.action?.cast?.author?.fid ? JSON.stringify(status?.action?.cast?.author?.fid) : null;
-		const power_badge = status?.action?.interactor?.power_badge ? status.action.interactor.power_badge : null;
+		
 
 		const User = await getUser(fid_new);
 
