@@ -1,40 +1,23 @@
-# Pill Wheel Frame
+# PILL WHEEL GAME 🌀
 
-This nextjs app will embed a free mint frame in Warpcast 🎉
+Welcome to the PILL WHEEL GAME! We’ve created an exciting game tied to our memecoin, $PILL, on the Base platform. Here’s how it works:
 
-It's powered by the Neynar API that checks like and recast status of the post that embeds this frame.
+Spin the wheel and earn points in a fun and engaging way. The first season has officially ended, but stay tuned for more updates and new seasons!
 
-## Code setup
+## Highlights:
 
-```
-$ yarn
-```
+Platform: Base
+Objective: Spin the wheel to earn points
+Season 1: Successfully completed
 
-1. Copy `.env.example` to `.env.local` (or put the variables in your environment) and update the values.
-2. Update the `src/config.ts` file with your chain, contract address and collection token ID
+## Partnership Opportunities:
 
-For added security you might want to enable KV on vercel! This will save any sucessful mint requests and prevent people to spam free mints.
+We’ve received numerous partnership requests and are always open to new collaborations. If you’re interested in partnering with us, we welcome your suggestion to pillonbase@proton.me
 
-## Customize
+Join us in making the PILL WHEEL GAME even more exciting!
 
-- Update the pictures in `public/status/` and `src/app/opengraph-image.png`
-- Go through all the files and update texts as needed. It's not that many I know you can do it!
+## Edited by @skorolevskiy
 
-## Gotchas
-
-- The free mint will run until the minter account is out of funds, then everyone will just get an error :P
-- If you don't add KV people might be able to spam your frame to get multiple free mints! Didn't test tho
-
-## Contact
+### Creator of template
 
 Any questions? Ping me on [Farcaster @owl](https://warpcast.com/owl)!
-
-If you feel like donating some funds for more fun stuff 😘 `0xFd37f4625CA5816157D55a5b3F7Dd8DD5F8a0C2F`
-
-```
-@owl out 🫡
-  .___.
-  (o,o)
-  (\+/)
-   ^ ^
-```
