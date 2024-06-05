@@ -1,14 +1,8 @@
-# Zora Mint Frame
+# Pill Wheel Frame
 
 This nextjs app will embed a free mint frame in Warpcast 🎉
 
 It's powered by the Neynar API that checks like and recast status of the post that embeds this frame.
-
-## Zora setup
-
-Any 1155 collection on Zora should be supported, if you need ERC721 support please open an issue!
-
-To be able to do free admin mints you need to add the address of your minter account (corresponding to the private key in `MINTER_PRIVATE_KEY`) as an admin of your collection: `Manage collections > Your collection > Collaborators`
 
 ## Code setup
 

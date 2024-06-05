@@ -87,8 +87,8 @@ export async function POST(req: NextRequest): Promise<Response> {
 					await updateWallet(fid_new, JSON.stringify(address2));
 				}
 			  } else {
-				console.warn('1need more token ' + balanceInTokens1 + ' - ' + address1);
-				console.warn('2need more token ' + balanceInTokens2 + ' - ' + address2);
+				console.warn('1 need more token ' + balanceInTokens1 + ' - ' + address1);
+				console.warn('2 need more token ' + balanceInTokens2 + ' - ' + address2);
 				return getResponse(ResponseType.NEED_TOKEN);
 				
 			  }
