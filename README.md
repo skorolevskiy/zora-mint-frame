@@ -7,7 +7,9 @@ Spin the wheel and earn points in a fun and engaging way. The first season has o
 ## Highlights:
 
 Platform: Base
+
 Objective: Spin the wheel to earn points
+
 Season 1: Successfully completed
 
 ## Partnership Opportunities:
