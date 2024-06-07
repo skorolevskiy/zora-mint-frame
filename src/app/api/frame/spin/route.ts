@@ -152,7 +152,7 @@ function getResponse(type: ResponseType) {
 		[ResponseType.ALREADY_MINTED]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/already-minted.png',
 		[ResponseType.NO_ADDRESS]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/no-address.png',
 		[ResponseType.ERROR]: 'https://gateway.lighthouse.storage/ipfs/QmaS8bbwz79CWfJEfJ44JEu4PA7QkR563koCqSdgPED6Jp/error.png',
-		[ResponseType.SPIN_OUT]: 'https://pillonbase.vercel.app/end.png' 
+		[ResponseType.SPIN_OUT]: 'https://pillonbase.vercel.app/end.png'
 	}[type];
 	const shouldRetry =
 	  type === ResponseType.SPIN_OUT;
