@@ -121,13 +121,13 @@ export async function POST(req: NextRequest): Promise<Response> {
 		}
 
 		// // Check if user has liked and recasted
-		const hasLikedAndRecasted =
-			!!status?.action?.cast?.viewer_context?.liked &&
-			!!status?.action?.cast?.viewer_context?.recasted;
+		// const hasLikedAndRecasted =
+		// 	!!status?.action?.cast?.viewer_context?.liked &&
+		// 	!!status?.action?.cast?.viewer_context?.recasted;
 
-		if (!hasLikedAndRecasted) {
-			return getResponse(ResponseType.RECAST);
-		}
+		// if (!hasLikedAndRecasted) {
+		// 	return getResponse(ResponseType.RECAST);
+		// }
 
 		return getResponse(ResponseType.SUCCESS);
 	} catch (error) {
