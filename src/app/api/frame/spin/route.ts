@@ -32,79 +32,79 @@ export async function POST(req: NextRequest): Promise<Response> {
 			points = User.points;
 		}
 
-		// const randomNumber = weighted_random_number();
+		const randomNumber = weighted_random_number();
 
-		// if (spins > 0) {
-		// 	buttonText = (spins - 1) + " free spins";
-		// 	switch (randomNumber) {
-		// 		case 1:
-		// 			await updatePointsSpins(fid, 5);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_5);
-		// 		case 2:
-		// 			await updatePointsSpins(fid, 25);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_25);
-		// 		case 3:
-		// 			await updatePointsSpins(fid, 50);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_50);
-		// 		case 4:
-		// 			await updatePointsSpins(fid, 100);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_100);
-		// 		case 5:
-		// 			await updatePointsSpins(fid, 150);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_150);
-		// 		case 6:
-		// 			await updatePointsSpins(fid, 200);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_200);
-		// 		case 7:
-		// 			await updatePointsSpins(fid, 250);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_250);
-		// 		case 8:
-		// 			await updatePointsSpins(fid, 500);
-		// 			spins--;
-		// 			return getResponse(ResponseType.IMAGE_500);
-		// 	}
-		// } else {
-		// 	if (points > 100) {
-		// 		buttonText = "Spin -100 points";
-		// 		points = points - 100;
-		// 		switch (randomNumber) {
-		// 			case 1:
-		// 				await updatePoints(fid, -95);
-		// 				return getResponse(ResponseType.IMAGE_5);
-		// 			case 2:
-		// 				await updatePoints(fid, -75);
-		// 				return getResponse(ResponseType.IMAGE_25);
-		// 			case 3:
-		// 				await updatePoints(fid, -50);
-		// 				return getResponse(ResponseType.IMAGE_50);
-		// 			case 4:
-		// 				await updatePoints(fid, 0);
-		// 				return getResponse(ResponseType.IMAGE_100);
-		// 			case 5:
-		// 				await updatePoints(fid, 50);
-		// 				return getResponse(ResponseType.IMAGE_150);
-		// 			case 6:
-		// 				await updatePoints(fid, 100);
-		// 				return getResponse(ResponseType.IMAGE_200);
-		// 			case 7:
-		// 				await updatePoints(fid, 150);
-		// 				return getResponse(ResponseType.IMAGE_250);
-		// 			case 8:
-		// 				await updatePoints(fid, 400);
-		// 				return getResponse(ResponseType.IMAGE_500);
-		// 		}
-		// 	} else {
-		// 		return getResponse(ResponseType.SPIN_OUT);
-		// 	}
+		if (spins > 0) {
+			buttonText = (spins - 1) + " free spins";
+			switch (randomNumber) {
+				case 1:
+					await updatePointsSpins(fid, 5);
+					spins--;
+					return getResponse(ResponseType.IMAGE_5);
+				case 2:
+					await updatePointsSpins(fid, 25);
+					spins--;
+					return getResponse(ResponseType.IMAGE_25);
+				case 3:
+					await updatePointsSpins(fid, 50);
+					spins--;
+					return getResponse(ResponseType.IMAGE_50);
+				case 4:
+					await updatePointsSpins(fid, 100);
+					spins--;
+					return getResponse(ResponseType.IMAGE_100);
+				case 5:
+					await updatePointsSpins(fid, 150);
+					spins--;
+					return getResponse(ResponseType.IMAGE_150);
+				case 6:
+					await updatePointsSpins(fid, 200);
+					spins--;
+					return getResponse(ResponseType.IMAGE_200);
+				case 7:
+					await updatePointsSpins(fid, 250);
+					spins--;
+					return getResponse(ResponseType.IMAGE_250);
+				case 8:
+					await updatePointsSpins(fid, 500);
+					spins--;
+					return getResponse(ResponseType.IMAGE_500);
+			}
+		} else {
+			if (points > 100) {
+				buttonText = "Spin -100 points";
+				points = points - 100;
+				switch (randomNumber) {
+					case 1:
+						await updatePoints(fid, -95);
+						return getResponse(ResponseType.IMAGE_5);
+					case 2:
+						await updatePoints(fid, -75);
+						return getResponse(ResponseType.IMAGE_25);
+					case 3:
+						await updatePoints(fid, -50);
+						return getResponse(ResponseType.IMAGE_50);
+					case 4:
+						await updatePoints(fid, 0);
+						return getResponse(ResponseType.IMAGE_100);
+					case 5:
+						await updatePoints(fid, 50);
+						return getResponse(ResponseType.IMAGE_150);
+					case 6:
+						await updatePoints(fid, 100);
+						return getResponse(ResponseType.IMAGE_200);
+					case 7:
+						await updatePoints(fid, 150);
+						return getResponse(ResponseType.IMAGE_250);
+					case 8:
+						await updatePoints(fid, 400);
+						return getResponse(ResponseType.IMAGE_500);
+				}
+			} else {
+				return getResponse(ResponseType.SPIN_OUT);
+			}
 			
-		// }
+		}
 
 		return getResponse(ResponseType.SPIN_OUT);
 		// Check if user has minted before
