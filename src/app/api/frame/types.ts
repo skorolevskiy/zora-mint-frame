@@ -20,7 +20,7 @@ export interface Database {
 	spiners: PlayersTable
 }
 
-export const db = createKysely<Database>()
+export const db = createKysely<Database>() 
 export { sql } from 'kysely'
 
 export async function getUser(fid: string | null): Promise<any> {

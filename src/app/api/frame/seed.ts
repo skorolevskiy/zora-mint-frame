@@ -13,6 +13,7 @@ export async function seed() {
       "refFid" VARCHAR(255) NOT NULL,
       "refSpin" INTEGER,
       "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      "recieveDrop" BOOLEAN NOT NULL DEFAULT FALSE
     );
     `
 
